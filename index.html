@@ -3,34 +3,40 @@
     <head>
         <meta charset="utf-8">
         <title>Welcome</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <div class ="campo">
         <h1>Bienvenido a mi CV</h1>
-        <p>Esta es una breve introduccion de mi CV</p>
+        </div>
+        <div class="campo">
+            <p>Esta es una breve introduccion de mi CV</p>
+        </div>
         <form>
+            <div class="campo">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre">
-            <br><br>
+            </div>
 
+            <div class="campo">
             <label for="edad">Edad:</label>
             <input type="number" id="edad">
-            <br><br>
+            </div>
 
+            <div class="campo">
             <label for="correo">Correo:</label>
             <input type="email" id="correo">
-            <br><br>
+            </div>
+
+            <div class="campo">
             <button type="submit">Enviar</button>
-            <br><br>
-            <table border="1">
-                <tr>
-                    <th>Backend</th>
-                    <th>Frontend</th>
-                </tr>
-                <tr>
-                    <td>Node.js</td>
-                    <td>React</td>
-                </tr>
-            </table>
+            </div>
+            <div class="tecnologias">
+                <div>Node.js</div>
+                <div>React</div>
+                <div>Mongo.db</div>
+                <div>Mysql</div>
+            </div>
         </form>
     </body>
 </html>
