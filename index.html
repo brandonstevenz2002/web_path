@@ -2,41 +2,32 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Welcome</title>
+        <title>Bienvenidos a mi programa</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div class ="campo">
-        <h1>Bienvenido a mi CV</h1>
-        </div>
+        <h1>Experiencia</h1>
+        <p>Desarrollador de software 1 año en impadoc. Conctatame</p>
+    <form>
         <div class="campo">
-            <p>Esta es una breve introduccion de mi CV</p>
-        </div>
-        <form>
-            <div class="campo">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre">
-            </div>
-
-            <div class="campo">
             <label for="edad">Edad:</label>
-            <input type="number" id="edad">
-            </div>
-
-            <div class="campo">
+            <input type="number" id="edad"></input>
             <label for="correo">Correo:</label>
             <input type="email" id="correo">
-            </div>
-
-            <div class="campo">
             <button type="submit">Enviar</button>
-            </div>
-            <div class="tecnologias">
-                <div>Node.js</div>
-                <div>React</div>
-                <div>Mongo.db</div>
-                <div>Mysql</div>
-            </div>
-        </form>
+        </div>
+    </form>
+    <table border="1">
+            <tr>
+                <th>Backend</th>
+                <th>Frontend</th>
+                <th>Database</th>
+            </tr>
+            <td>Node.js</td>
+            <td>React</td>
+            <td>Mysql</td>
+    </table>
     </body>
 </html>

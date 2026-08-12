@@ -1,26 +1,48 @@
-h1 {
-    color: cornflowerblue;
-}
-
-p {
-    color: cornflowerblue;
-}
-
 body {
-    background-color: beige;
-    color: cornflowerblue;
+    background-color: #f9f9f9;   /* color de fondo */
+    font-family: Arial, sans-serif; /* tipografía */
+    margin: 0;                   /* elimina márgenes por defecto */
+    padding: 20px;               /* espacio interno */
 }
 
-.campo {
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    display: flex;
-}
+h1 {
+    color: darkblue;        /* color del texto */
+    text-align: center;     /* centra el título */
+    margin-bottom: 10px;    /* espacio debajo */
+  }
 
-.tecnologias {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
+  p {
+    color: #333;            /* tono gris oscuro */
+    text-align: center;     /* centra el texto */
+    margin-bottom: 20px;    /* espacio debajo */
+ }
+  
+ form {
+    display: flex;              /* convierte el formulario en contenedor flex */
+    justify-content: center;    /* centra horizontalmente */
+    align-items: center;        /* centra verticalmente */
 }
+  
+  form .campo {
+    display: flex;              /* también es un contenedor flex */
+    flex-direction: column;     /* organiza los elementos en columna */
+    align-items: center;        /* centra los inputs y labels */
+    gap: 10px;                  /* espacio entre cada campo */
+    max-width: 300px;           /* ancho máximo */
+}  
+
+table {
+    display: grid;                     /* activa grid */
+    grid-template-columns: 1fr 1fr;    /* dos columnas iguales */
+    gap: 10px;                         /* espacio entre celdas */
+    border: 1px solid #ccc;            /* borde externo */
+    padding: 10px;
+    margin-top: 20px;
+}
+  
+  th, td {
+    border: 1px solid #ccc;            /* bordes internos */
+    padding: 8px;
+    text-align: center;                /* centra el texto */
+}
+  
