@@ -1,48 +1,91 @@
 body {
-    background-color: #f9f9f9;   /* color de fondo */
-    font-family: Arial, sans-serif; /* tipografía */
-    margin: 0;                   /* elimina márgenes por defecto */
-    padding: 20px;               /* espacio interno */
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+  text-align: center;
+  margin: 20px;
+  padding: 15px;
+  border: 2px solid white;
 }
 
 h1 {
-    color: darkblue;        /* color del texto */
-    text-align: center;     /* centra el título */
-    margin-bottom: 10px;    /* espacio debajo */
-  }
-
-  p {
-    color: #333;            /* tono gris oscuro */
-    text-align: center;     /* centra el texto */
-    margin-bottom: 20px;    /* espacio debajo */
- }
-  
- form {
-    display: flex;              /* convierte el formulario en contenedor flex */
-    justify-content: center;    /* centra horizontalmente */
-    align-items: center;        /* centra verticalmente */
+  color: yellow;
 }
-  
-  form .campo {
-    display: flex;              /* también es un contenedor flex */
-    flex-direction: column;     /* organiza los elementos en columna */
-    align-items: center;        /* centra los inputs y labels */
-    gap: 10px;                  /* espacio entre cada campo */
-    max-width: 300px;           /* ancho máximo */
-}  
 
+p {
+  color: blue;
+}
+
+.datos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.datos div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+label {
+  color: red;
+  width: 80px;
+  text-align: right;
+}
+
+input {
+  width: 220px;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+
+#nombre {
+  border-left: 5px solid red;
+}
+
+#edad {
+  border-left: 5px solid yellow;
+}
+
+
+#correo {
+  border-left: 5px solid blue;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: darkgreen;
+}
+
+/* Tabla */
 table {
-    display: grid;                     /* activa grid */
-    grid-template-columns: 1fr 1fr;    /* dos columnas iguales */
-    gap: 10px;                         /* espacio entre celdas */
-    border: 1px solid #ccc;            /* borde externo */
-    padding: 10px;
-    margin-top: 20px;
+  margin: 30px auto;
+  border-collapse: collapse;
+  color: white;
 }
-  
-  th, td {
-    border: 1px solid #ccc;            /* bordes internos */
-    padding: 8px;
-    text-align: center;                /* centra el texto */
+
+th,
+td {
+  border: 1px solid white;
+  padding: 10px;
 }
-  
+
+th {
+  background-color: #333;
+}
