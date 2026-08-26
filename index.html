@@ -1,34 +1,730 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Bienvenido</title>
-    </head>
-    <body>
-        <h1>La ley de los Audaces</h1>
-        <p>Diligencia los siguientes datos para contactar a un abogado de pearson hardman</p>
-    <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id ="nombre">
-        <br><br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad">
-        <br><br>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo">
-        <br><br>
-        <button type="submit">Enviar</button>
-        <br><br>
-    </form>
-    <table border="1">
-        <tr>
-            <th>Harvey Specter</th>
-            <th>Mike Ross</th>
-        </tr>
-        <tr>
-            <td>+1500 experience</td>
-            <td>+1000 experience</td>
-        </tr>
-    </table>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La ley de los Audaces — Pearson Hardman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --negro: #080808;
+            --carbon: #121214;
+            --grafito: #1c1c1f;
+            --plata: #a8a8ae;
+            --blanco: #f4f2ee;
+            --oro: #c9a84c;
+            --oro-claro: #e2c875;
+            --oro-oscuro: #8a6f2e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--negro);
+            color: var(--blanco);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Textura sutil + viñeta */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 168, 76, 0.06) 0%, transparent 55%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 80px,
+                    rgba(255,255,255,0.012) 80px,
+                    rgba(255,255,255,0.012) 81px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Línea dorada superior */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--oro), var(--oro-claro), var(--oro), transparent);
+            z-index: 100;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 4rem 1.75rem 5rem;
+        }
+
+        /* ── Imagen principal del elenco ── */
+        .cast-hero {
+            position: relative;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            overflow: hidden;
+            animation: fadeUp 0.8s 0.08s ease both;
+        }
+
+        .cast-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(8, 8, 8, 0.92) 0%,
+                rgba(8, 8, 8, 0.35) 45%,
+                rgba(8, 8, 8, 0.15) 100%
+            );
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .cast-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--oro-oscuro), var(--oro-claro), var(--oro-oscuro));
+            z-index: 2;
+        }
+
+        .cast-hero img {
+            display: block;
+            width: 100%;
+            height: clamp(280px, 42vw, 460px);
+            object-fit: cover;
+            object-position: center 18%;
+            filter: saturate(0.88) contrast(1.05);
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+
+        .cast-hero:hover img {
+            transform: scale(1.03);
+            filter: saturate(1) contrast(1.08);
+        }
+
+        .cast-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            padding: 1.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cast-caption-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.4rem, 3vw, 1.85rem);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.25rem;
+        }
+
+        .cast-caption-text p {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--oro);
+            font-weight: 500;
+        }
+
+        .cast-names {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cast-names span {
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--plata);
+            padding-left: 0.75rem;
+            border-left: 1px solid var(--oro);
+        }
+
+        .cast-names strong {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: none;
+            color: var(--blanco);
+            margin-bottom: 0.15rem;
+        }
+
+        /* ── Header / Firma ── */
+        header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            animation: fadeUp 0.8s ease both;
+        }
+
+        .firm-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .firm-badge::before,
+        .firm-badge::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--oro);
+        }
+
+        .firm-badge span {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--oro);
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.6rem, 7vw, 4.2rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            line-height: 1.05;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--oro-claro);
+        }
+
+        .tagline {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--plata);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--plata);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        .intro strong {
+            color: var(--blanco);
+            font-weight: 500;
+        }
+
+        /* ── Layout principal ── */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* ── Formulario ── */
+        .panel {
+            background: var(--carbon);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            padding: 2rem 2rem 2.25rem;
+            position: relative;
+            animation: fadeUp 0.8s 0.15s ease both;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--oro), var(--oro-oscuro));
+        }
+
+        .panel-header {
+            margin-bottom: 1.75rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .panel-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .panel-header p {
+            font-size: 0.78rem;
+            color: var(--plata);
+            margin-top: 0.3rem;
+            font-weight: 300;
+        }
+
+        .field {
+            margin-bottom: 1.35rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--oro);
+            margin-bottom: 0.45rem;
+        }
+
+        input {
+            width: 100%;
+            background: var(--grafito);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 2px solid rgba(201, 168, 76, 0.25);
+            color: var(--blanco);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 300;
+            padding: 0.75rem 0.9rem;
+            transition: border-color 0.25s, background 0.25s;
+        }
+
+        input::placeholder {
+            color: rgba(168, 168, 174, 0.45);
+            font-weight: 300;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: rgba(201, 168, 76, 0.4);
+            border-bottom-color: var(--oro);
+            background: #222226;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            margin-top: 0.5rem;
+            padding: 0.95rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--oro);
+            color: var(--oro-claro);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.35s;
+        }
+
+        button[type="submit"]::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--oro);
+            transform: translateX(-101%);
+            transition: transform 0.35s ease;
+            z-index: 0;
+        }
+
+        button[type="submit"]:hover {
+            color: var(--negro);
+        }
+
+        button[type="submit"]:hover::before {
+            transform: translateX(0);
+        }
+
+        button[type="submit"] span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Abogados ── */
+        .lawyers {
+            animation: fadeUp 0.8s 0.3s ease both;
+        }
+
+        .lawyers-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .lawyers-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .lawyers-header p {
+            font-size: 0.78rem;
+            color: var(--plata);
+            font-weight: 300;
+            margin-top: 0.25rem;
+        }
+
+        .lawyer-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .lawyer-card {
+            background: var(--carbon);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 0;
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 0;
+            align-items: stretch;
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            cursor: default;
+        }
+
+        .lawyer-card:hover {
+            border-color: rgba(201, 168, 76, 0.35);
+            transform: translateX(4px);
+            box-shadow: -4px 0 0 var(--oro);
+        }
+
+        .lawyer-card.mike:hover {
+            box-shadow: -4px 0 0 var(--plata);
+        }
+
+        .lawyer-photo {
+            position: relative;
+            overflow: hidden;
+            border-right: 1px solid rgba(201, 168, 76, 0.15);
+        }
+
+        .lawyer-photo img {
+            width: 100%;
+            height: 100%;
+            min-height: 130px;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            filter: grayscale(0.15) contrast(1.05);
+            transition: transform 0.45s ease, filter 0.45s ease;
+        }
+
+        .lawyer-card:hover .lawyer-photo img {
+            transform: scale(1.08);
+            filter: grayscale(0) contrast(1.1);
+        }
+
+        .lawyer-card.mike .lawyer-photo {
+            border-right-color: rgba(255,255,255,0.08);
+        }
+
+        .lawyer-info {
+            padding: 1.35rem 1.5rem 1.35rem 1.25rem;
+        }
+
+        .lawyer-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .lawyer-role {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--oro);
+            margin-bottom: 0.5rem;
+        }
+
+        .lawyer-card.mike .lawyer-role { color: var(--plata); }
+
+        .lawyer-stat {
+            font-size: 0.82rem;
+            color: var(--plata);
+            font-weight: 300;
+        }
+
+        .lawyer-stat strong {
+            color: var(--blanco);
+            font-weight: 500;
+        }
+
+        .stat-bar {
+            margin-top: 0.6rem;
+            height: 2px;
+            background: rgba(255,255,255,0.06);
+            position: relative;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--oro-oscuro), var(--oro-claro));
+            transition: width 1.2s ease;
+        }
+
+        .lawyer-card.mike .stat-bar-fill {
+            background: linear-gradient(90deg, #444, var(--plata));
+        }
+
+        /* ── Quote ── */
+        .quote-block {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem 1.75rem;
+            border-left: 2px solid var(--oro);
+            background: rgba(201, 168, 76, 0.04);
+            animation: fadeUp 0.8s 0.45s ease both;
+        }
+
+        .quote-portrait {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 2px solid var(--oro);
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+        }
+
+        .quote-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .quote-block blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.55;
+            color: var(--blanco);
+        }
+
+        .quote-block cite {
+            display: block;
+            margin-top: 0.65rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-style: normal;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--oro);
+        }
+
+        /* ── Footer ── */
+        footer {
+            margin-top: 3.5rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            animation: fadeUp 0.8s 0.55s ease both;
+        }
+
+        footer .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--plata);
+        }
+
+        footer .logo-text span {
+            color: var(--oro);
+        }
+
+        footer p {
+            font-size: 0.68rem;
+            color: rgba(168, 168, 174, 0.5);
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 720px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wrapper {
+                padding-top: 3rem;
+            }
+
+            .cast-caption {
+                padding: 1.25rem 1.25rem;
+            }
+
+            .cast-names {
+                gap: 1rem;
+            }
+
+            .lawyer-card {
+                grid-template-columns: 90px 1fr;
+            }
+
+            .quote-block {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .quote-portrait {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar"></div>
+
+    <div class="wrapper">
+        <header>
+            <div class="firm-badge"><span>Pearson Hardman</span></div>
+            <h1>La ley de los <em>Audaces</em></h1>
+            <p class="tagline">Cuando ganas, ganas. Cuando pierdes, aprendes.</p>
+            <p class="intro">
+                Diligencia los siguientes datos para contactar a un abogado de
+                <strong>Pearson Hardman</strong>.
+            </p>
+        </header>
+
+        <figure class="cast-hero">
+            <img
+                src="e71382f9cc74086c1641063bb9661a6b.jpg"
+                alt="Harvey Specter y Mike Ross en la biblioteca de Pearson Hardman"
+                width="1040"
+                height="460"
+                loading="eager"
+            >
+            <figcaption class="cast-caption">
+                <div class="cast-caption-text">
+                    <h2>El equipo que no pierde</h2>
+                    <p>Pearson Hardman · Nueva York</p>
+                </div>
+                <div class="cast-names">
+                    <span><strong>Mike Ross</strong>Asociado</span>
+                    <span><strong>Harvey Specter</strong>Socio sénior</span>
+                </div>
+            </figcaption>
+        </figure>
+
+        <div class="main-grid">
+            <section class="panel">
+                <div class="panel-header">
+                    <h2>Consulta confidencial</h2>
+                    <p>Complete el formulario. Respuesta en 24 horas.</p>
+                </div>
+                <form>
+                    <div class="field">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" placeholder="Como aparece en su identificación">
+                    </div>
+                    <div class="field">
+                        <label for="edad">Edad</label>
+                        <input type="number" id="edad" placeholder="18+">
+                    </div>
+                    <div class="field">
+                        <label for="correo">Correo electrónico</label>
+                        <input type="email" id="correo" placeholder="nombre@empresa.com">
+                    </div>
+                    <button type="submit"><span>Enviar solicitud</span></button>
+                </form>
+            </section>
+
+            <section class="lawyers">
+                <div class="lawyers-header">
+                    <h2>Socios disponibles</h2>
+                    <p>Seleccione al profesional más adecuado para su caso.</p>
+                </div>
+                <div class="lawyer-cards">
+                    <article class="lawyer-card harvey">
+                        <div class="lawyer-photo">
+                            <img src="Harvey specter.jpg" alt="Harvey Specter" loading="lazy">
+                        </div>
+                        <div class="lawyer-info">
+                            <h3>Harvey Specter</h3>
+                            <p class="lawyer-role">Socio sénior · Litigio corporativo</p>
+                            <p class="lawyer-stat"><strong>+1 500</strong> casos ganados</p>
+                            <div class="stat-bar"><div class="stat-bar-fill" style="width:95%"></div></div>
+                        </div>
+                    </article>
+                    <article class="lawyer-card mike">
+                        <div class="lawyer-photo">
+                            <img src="Mike Ross.jpg" alt="Mike Ross" loading="lazy">
+                        </div>
+                        <div class="lawyer-info">
+                            <h3>Mike Ross</h3>
+                            <p class="lawyer-role">Asociado · Derecho contractual</p>
+                            <p class="lawyer-stat"><strong>+1 000</strong> casos ganados</p>
+                            <div class="stat-bar"><div class="stat-bar-fill" style="width:78%"></div></div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <aside class="quote-block">
+            <div class="quote-portrait">
+                <img src="Harvey specter.jpg" alt="Harvey Specter" loading="lazy">
+            </div>
+            <blockquote>
+                «Los audaces no esperan permiso. Toman el control del caso antes de que el juez lo haga.»
+            </blockquote>
+            <cite>— Harvey Specter</cite>
+        </aside>
+
+        <footer>
+            <div class="logo-text">Pearson <span>Hardman</span></div>
+            <p>© 2026 · Confidencial · Todos los derechos reservados</p>
+        </footer>
+    </div>
+</body>
 </html>
