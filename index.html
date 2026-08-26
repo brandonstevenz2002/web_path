@@ -269,6 +269,84 @@
             overflow: hidden;
             border: 2px solid transparent;
             transition: transform 0.2s, border-color 0.2s;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .tech-card:active {
+            transform: scale(0.96) !important;
+        }
+
+        .tech-card .tech-body::after {
+            content: 'click → 💥 telarañas';
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.5rem;
+        }
+
+        /* Capa de telarañas voladoras */
+        #web-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .web-strand {
+            position: fixed;
+            width: 2px;
+            height: 0;
+            transform-origin: top center;
+            border-radius: 2px;
+            animation: strand-shoot 0.35s ease-out forwards;
+        }
+
+        @keyframes strand-shoot {
+            to { height: var(--length); }
+        }
+
+        .flying-web {
+            position: fixed;
+            width: var(--size);
+            height: var(--size);
+            animation: web-fly var(--duration) cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+        }
+
+        .flying-web svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.3));
+        }
+
+        @keyframes web-fly {
+            0% {
+                transform: translate(0, 0) scale(0.1) rotate(0deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot));
+                opacity: 0.85;
+            }
+        }
+
+        .stuck-web {
+            position: fixed;
+            animation: web-stick 0.3s ease-out forwards, web-fade 2.5s ease-in 1.5s forwards;
+        }
+
+        @keyframes web-stick {
+            from { transform: scale(1.3); opacity: 0; }
+            to { transform: scale(1); opacity: 0.85; }
+        }
+
+        @keyframes web-fade {
+            to { opacity: 0; transform: scale(0.8); }
         }
 
         .tech-card:hover {
@@ -321,6 +399,7 @@
     </style>
 </head>
 <body>
+    <div id="web-layer" aria-hidden="true"></div>
     <div class="web-bg"></div>
     <div class="swing-lines" aria-hidden="true">
         <span></span>
@@ -375,5 +454,80 @@
             Ninguna araña fue contratada en la elaboración de este currículum.
         </footer>
     </div>
+
+    <script>
+        const webLayer = document.getElementById('web-layer');
+
+        const webSVG = (color) => `
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="4" fill="${color}" opacity="0.9"/>
+                ${Array.from({ length: 8 }, (_, i) => {
+                    const angle = (i * 45) * Math.PI / 180;
+                    const x2 = 50 + Math.cos(angle) * 46;
+                    const y2 = 50 + Math.sin(angle) * 46;
+                    return `<line x1="50" y1="50" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="1.2" opacity="0.7"/>`;
+                }).join('')}
+                ${[14, 26, 38].map(r => `<circle cx="50" cy="50" r="${r}" fill="none" stroke="${color}" stroke-width="0.8" opacity="0.5"/>`).join('')}
+            </svg>`;
+
+        function shootWebs(card) {
+            const rect = card.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const isBackend = card.classList.contains('backend');
+            const color = isBackend ? '#e62429' : '#42a5f5';
+            const count = 7 + Math.floor(Math.random() * 4);
+
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.6;
+                const distance = 120 + Math.random() * 280;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const length = distance * 0.85;
+
+                // Hilo de telaraña
+                const strand = document.createElement('div');
+                strand.className = 'web-strand';
+                strand.style.left = cx + 'px';
+                strand.style.top = cy + 'px';
+                strand.style.setProperty('--length', length + 'px');
+                strand.style.background = `linear-gradient(to bottom, ${color}, transparent)`;
+                strand.style.transform = `rotate(${(angle * 180 / Math.PI) + 90}deg)`;
+                webLayer.appendChild(strand);
+                setTimeout(() => strand.remove(), 400);
+
+                // Telaraña voladora
+                const size = 50 + Math.random() * 40;
+                const web = document.createElement('div');
+                web.className = 'flying-web';
+                web.style.left = (cx - size / 2) + 'px';
+                web.style.top = (cy - size / 2) + 'px';
+                web.style.setProperty('--size', size + 'px');
+                web.style.setProperty('--tx', tx + 'px');
+                web.style.setProperty('--ty', ty + 'px');
+                web.style.setProperty('--rot', (Math.random() * 360) + 'deg');
+                web.style.setProperty('--duration', (0.4 + Math.random() * 0.3) + 's');
+                web.innerHTML = webSVG(color);
+                webLayer.appendChild(web);
+
+                web.addEventListener('animationend', () => {
+                    web.className = 'stuck-web';
+                    web.style.left = (cx + tx - size / 2) + 'px';
+                    web.style.top = (cy + ty - size / 2) + 'px';
+                    web.style.transform = `rotate(${web.style.getPropertyValue('--rot')})`;
+                    setTimeout(() => web.remove(), 4000);
+                }, { once: true });
+            }
+
+            // Thwip! — pequeño shake en la tarjeta
+            card.style.transition = 'transform 0.1s';
+            card.style.transform = 'scale(0.94)';
+            setTimeout(() => { card.style.transform = ''; }, 120);
+        }
+
+        document.querySelectorAll('.tech-card').forEach(card => {
+            card.addEventListener('click', () => shootWebs(card));
+        });
+    </script>
 </body>
 </html>
