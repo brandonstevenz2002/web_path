@@ -1,34 +1,379 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Experiencia laboral</title>
-    </head>
-    <body>
-        <h1>Bienvenido a Mi cv</h1>
-        <p>Cuento con 1 año de experiencia en el mercado como desarrollador de software en Impadoc S.A contactame:</p>
-    <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre">
-        <br><br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad">
-        <br><br>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo">
-        <br><br>
-        <button type="submit">Enviar</button>
-    </form>
-    <table border="1">
-        <h2>Teconologias utilizadas</h2>
-        <tr>
-            <th>Backend</th>
-            <th>Frontend</th>
-        </tr>
-        <tr>
-            <td>Node.js</td>
-            <td>React</td>
-        </tr>
-    </table>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiencia laboral</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --rojo: #e62429;
+            --rojo-oscuro: #b91c1c;
+            --azul: #1565c0;
+            --azul-claro: #42a5f5;
+            --negro: #0a0a12;
+            --gris: #1a1a2e;
+            --blanco: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--negro);
+            color: var(--blanco);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Telaraña de fondo — decorativa, cero relación con un CV */
+        .web-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+            background:
+                radial-gradient(circle at 50% 50%, transparent 0%, var(--negro) 70%),
+                repeating-conic-gradient(from 0deg at 50% 50%,
+                    transparent 0deg 8deg,
+                    rgba(255,255,255,0.4) 8deg 9deg);
+            animation: pulse-web 8s ease-in-out infinite;
+        }
+
+        .web-bg::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background:
+                repeating-radial-gradient(circle at 50% 50%,
+                    transparent 0px,
+                    transparent 40px,
+                    rgba(230, 36, 41, 0.3) 40px,
+                    rgba(230, 36, 41, 0.3) 41px);
+        }
+
+        @keyframes pulse-web {
+            0%, 100% { opacity: 0.12; transform: scale(1); }
+            50% { opacity: 0.18; transform: scale(1.02); }
+        }
+
+        /* Líneas diagonales tipo "swing" */
+        .swing-lines {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .swing-lines span {
+            position: absolute;
+            width: 2px;
+            height: 200%;
+            background: linear-gradient(to bottom, transparent, var(--rojo), transparent);
+            transform-origin: top center;
+            animation: swing 6s ease-in-out infinite;
+        }
+
+        .swing-lines span:nth-child(1) { left: 15%; animation-delay: 0s; }
+        .swing-lines span:nth-child(2) { left: 45%; animation-delay: -2s; background: linear-gradient(to bottom, transparent, var(--azul-claro), transparent); }
+        .swing-lines span:nth-child(3) { left: 78%; animation-delay: -4s; }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-8deg) translateY(-10%); }
+            50% { transform: rotate(8deg) translateY(-5%); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        /* Header estilo portada de cómic */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--rojo);
+            color: white;
+            font-family: 'Bangers', cursive;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            padding: 0.3rem 1rem;
+            border-radius: 2px;
+            transform: rotate(-2deg);
+            margin-bottom: 1rem;
+            box-shadow: 3px 3px 0 var(--azul);
+        }
+
+        h1 {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            letter-spacing: 2px;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--rojo) 0%, #ff6b6b 50%, var(--azul-claro) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 4px 20px rgba(230, 36, 41, 0.4));
+        }
+
+        .subtitle {
+            margin-top: 1rem;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.6;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subtitle strong {
+            color: var(--azul-claro);
+        }
+
+        /* Panel de contacto */
+        .panel {
+            background: var(--gris);
+            border: 2px solid var(--rojo);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow:
+                0 0 0 4px var(--azul),
+                0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .panel::before {
+            content: '🕷️';
+            position: absolute;
+            top: -18px;
+            right: 20px;
+            font-size: 1.8rem;
+            transform: rotate(15deg);
+            filter: grayscale(1) brightness(2);
+            opacity: 0.6;
+        }
+
+        .panel h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            color: var(--rojo);
+            margin-bottom: 1.5rem;
+        }
+
+        .panel h2::after {
+            content: ' (porque todo héroe necesita un formulario)';
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--azul-claro);
+            margin-bottom: 0.4rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--negro);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--blanco);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--rojo);
+            box-shadow: 0 0 0 3px rgba(230, 36, 41, 0.25);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.9rem;
+            margin-top: 0.5rem;
+            background: linear-gradient(135deg, var(--rojo) 0%, var(--rojo-oscuro) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 4px 0 var(--azul);
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 var(--azul), 0 10px 30px rgba(230, 36, 41, 0.4);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--azul);
+        }
+
+        /* Tabla de tecnologías → tarjetas */
+        .tech-section h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            color: var(--azul-claro);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .tech-card {
+            background: var(--gris);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-4px) rotate(-1deg);
+            border-color: var(--rojo);
+        }
+
+        .tech-card:nth-child(2):hover {
+            transform: translateY(-4px) rotate(1deg);
+            border-color: var(--azul-claro);
+        }
+
+        .tech-card header {
+            padding: 0.75rem;
+            font-family: 'Bangers', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .tech-card.backend header {
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+        }
+
+        .tech-card.frontend header {
+            background: linear-gradient(90deg, var(--azul), var(--azul-claro));
+        }
+
+        .tech-card body,
+        .tech-card .tech-body {
+            padding: 1.25rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="web-bg"></div>
+    <div class="swing-lines" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="badge">EDICIÓN ESPECIAL · CV #1</div>
+            <h1>Bienvenido a Mi CV</h1>
+            <p class="subtitle">
+                Cuento con <strong>1 año de experiencia</strong> en el mercado como desarrollador de software en
+                <strong>Impadoc S.A</strong>. Contactame:
+            </p>
+        </header>
+
+        <section class="panel">
+            <h2>Canal de comunicación</h2>
+            <form>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Tu nombre de héroe...">
+                </div>
+                <div class="form-group">
+                    <label for="edad">Edad</label>
+                    <input type="number" id="edad" placeholder="¿Cuántos años llevas en el multiverso?">
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" placeholder="tu@email.com">
+                </div>
+                <button type="submit">¡Enviar señal!</button>
+            </form>
+        </section>
+
+        <section class="tech-section">
+            <h2>Tecnologías utilizadas</h2>
+            <div class="tech-grid">
+                <article class="tech-card backend">
+                    <header>Backend</header>
+                    <div class="tech-body">Node.js</div>
+                </article>
+                <article class="tech-card frontend">
+                    <header>Frontend</header>
+                    <div class="tech-body">React</div>
+                </article>
+            </div>
+        </section>
+
+        <footer>
+            Ninguna araña fue contratada en la elaboración de este currículum.
+        </footer>
+    </div>
+</body>
 </html>
