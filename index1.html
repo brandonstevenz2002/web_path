@@ -1,34 +1,390 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Bienvenidos</title>
-    </head>
-    <body>
-        <h1>Oferta de empleo</h1>
-        <p>Introduzca el siguiente formulario</p>
-    <form>
-        <label for="nombre">Nombre:</label>
-        <input type="tex" id="nombre">
-        <br><br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad">
-        <br><br>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo">
-        <br><br>
-        <button type="submit">Enviar</button>
-        <br><br>
-    </form>
-    <table border="1">
-        <tr>
-            <th>Backend</th>
-            <th>Frontend</th>
-        </tr>
-        <tr>
-            <td>Node.js</td>
-            <td>React</td>
-        </tr>
-    </table>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferta de empleo — Desarrollador</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0b0f17;
+            --surface: #131a27;
+            --surface-2: #1a2333;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #eef2f8;
+            --muted: #8b9ab5;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --green: #22c55e;
+            --green-dim: rgba(34, 197, 94, 0.12);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 45% at 85% 10%, rgba(59, 130, 246, 0.14) 0%, transparent 55%),
+                radial-gradient(ellipse 50% 40% at 10% 90%, rgba(34, 197, 94, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        /* Header */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--green-dim);
+            border: 1px solid rgba(34, 197, 94, 0.35);
+            color: var(--green);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            margin-bottom: 1.25rem;
+        }
+
+        .badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--muted);
+            font-weight: 300;
+            max-width: 480px;
+        }
+
+        /* Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            align-items: start;
+        }
+
+        /* Panel formulario */
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+        }
+
+        .panel h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .panel > p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .field {
+            margin-bottom: 1.15rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+
+        input {
+            width: 100%;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            padding: 0.75rem 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder {
+            color: rgba(139, 154, 181, 0.5);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            margin-top: 0.5rem;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        /* Stack tecnológico */
+        .stack-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .stack-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .stack-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.25rem 1.35rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+
+        .stack-card:hover {
+            border-color: rgba(59, 130, 246, 0.35);
+            transform: translateX(4px);
+        }
+
+        .stack-card.backend:hover { border-color: rgba(34, 197, 94, 0.4); }
+        .stack-card.frontend:hover { border-color: rgba(96, 165, 250, 0.4); }
+
+        .stack-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+        }
+
+        .stack-card.backend .stack-icon {
+            background: rgba(34, 197, 94, 0.12);
+        }
+
+        .stack-card.frontend .stack-icon {
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+        .stack-info h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .stack-card.backend .stack-info h3 { color: var(--green); }
+        .stack-card.frontend .stack-info h3 { color: var(--accent-light); }
+
+        .stack-info p {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .stack-info span {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 400;
+            margin-top: 0.15rem;
+        }
+
+        /* Detalles extra */
+        .details {
+            margin-top: 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.25rem 1.35rem;
+        }
+
+        .details h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .details ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .details li {
+            font-size: 0.88rem;
+            color: var(--muted);
+            padding-left: 1.1rem;
+            position: relative;
+        }
+
+        .details li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-light);
+        }
+
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(139, 154, 181, 0.45);
+        }
+
+        @media (max-width: 720px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <div class="badge">Vacante abierta</div>
+            <h1>Oferta de empleo</h1>
+            <p class="subtitle">Introduzca el siguiente formulario para postularse como desarrollador de software.</p>
+        </header>
+
+        <div class="grid">
+            <section class="panel">
+                <h2>Formulario de postulación</h2>
+                <p>Complete sus datos. Nos pondremos en contacto pronto.</p>
+                <form>
+                    <div class="field">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" placeholder="Tu nombre completo">
+                    </div>
+                    <div class="field">
+                        <label for="edad">Edad</label>
+                        <input type="number" id="edad" placeholder="18+">
+                    </div>
+                    <div class="field">
+                        <label for="correo">Correo</label>
+                        <input type="email" id="correo" placeholder="tu@email.com">
+                    </div>
+                    <button type="submit">Enviar postulación</button>
+                </form>
+            </section>
+
+            <aside>
+                <section class="stack-section">
+                    <h2>Stack requerido</h2>
+                    <div class="stack-cards">
+                        <article class="stack-card backend">
+                            <div class="stack-icon">⚙️</div>
+                            <div class="stack-info">
+                                <h3>Backend</h3>
+                                <p>Node.js</p>
+                                <span>APIs, servicios y lógica de servidor</span>
+                            </div>
+                        </article>
+                        <article class="stack-card frontend">
+                            <div class="stack-icon">⚛️</div>
+                            <div class="stack-info">
+                                <h3>Frontend</h3>
+                                <p>React</p>
+                                <span>Interfaces modernas y componentes</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <div class="details">
+                    <h3>Requisitos</h3>
+                    <ul>
+                        <li>Experiencia con JavaScript / TypeScript</li>
+                        <li>Conocimiento de REST APIs</li>
+                        <li>Trabajo en equipo y comunicación clara</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <footer>© 2026 · Oferta de empleo · Desarrollador Full Stack</footer>
+    </div>
+</body>
 </html>
