@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formato Consumo — Presentación</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0f1419;
+            --surface: #1a2332;
+            --surface-2: #243044;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --green: #22c55e;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ── Deck ── */
+        .deck {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem 5rem 5rem;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(40px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-40px);
+        }
+
+        /* ── Slide variants ── */
+        .slide--hero {
+            background:
+                radial-gradient(ellipse 80% 60% at 70% 20%, rgba(59,130,246,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 10% 80%, rgba(34,197,94,0.1) 0%, transparent 50%),
+                var(--bg);
+        }
+
+        .slide--hero .tag {
+            display: inline-block;
+            background: rgba(59,130,246,0.15);
+            border: 1px solid rgba(59,130,246,0.35);
+            color: var(--accent-light);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide--hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .slide--hero h1 span { color: var(--accent-light); }
+
+        .slide--hero .lead {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 620px;
+            line-height: 1.7;
+        }
+
+        .slide--hero .meta {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .slide--hero .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .slide--hero .meta-item strong { color: var(--text); }
+
+        /* ── Content slides ── */
+        .slide-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .slide h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 1.75rem;
+        }
+
+        .slide h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin: 1.25rem 0 0.6rem;
+        }
+
+        /* ── Grid layouts ── */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .card p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .card code {
+            font-size: 0.78rem;
+            background: var(--surface-2);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            color: var(--accent-light);
+        }
+
+        /* ── Tables ── */
+        .table-wrap {
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        thead { background: var(--surface-2); }
+
+        th {
+            text-align: left;
+            padding: 0.65rem 1rem;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--muted);
+        }
+
+        td {
+            padding: 0.6rem 1rem;
+            border-top: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:hover td { background: rgba(255,255,255,0.02); }
+
+        /* ── Badges ── */
+        .badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+        }
+
+        .badge--ok   { background: rgba(34,197,94,0.15); color: var(--green); }
+        .badge--auth { background: rgba(245,158,11,0.15); color: var(--amber); }
+        .badge--pub  { background: rgba(59,130,246,0.15); color: var(--accent-light); }
+
+        /* ── Flow diagram ── */
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .flow-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 0.82rem;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .flow-step strong { display: block; font-size: 0.78rem; color: var(--accent-light); margin-bottom: 0.2rem; }
+
+        .flow-arrow {
+            color: var(--muted);
+            font-size: 1.2rem;
+            padding: 0 0.4rem;
+        }
+
+        /* ── Code block ── */
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--muted);
+            overflow-x: auto;
+        }
+
+        .code-block .cmd { color: var(--green); }
+        .code-block .comment { color: #64748b; }
+
+        /* ── Status grid ── */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.55rem 0.85rem;
+            font-size: 0.82rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
+        }
+
+        /* ── Architecture tree ── */
+        .tree {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            font-family: 'Consolas', monospace;
+            font-size: 0.78rem;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .tree .dir { color: var(--accent-light); }
+        .tree .file { color: var(--text); }
+        .tree .note { color: #64748b; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; }
+
+        /* ── Rules list ── */
+        .rules { list-style: none; }
+
+        .rules li {
+            display: flex;
+            gap: 0.85rem;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .rules li:last-child { border-bottom: none; }
+
+        .rules .num {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--surface-2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        /* ── Nav controls ── */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: linear-gradient(transparent, rgba(15,20,25,0.95));
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .nav-btn:hover { background: var(--surface-2); border-color: rgba(59,130,246,0.4); }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .progress {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--surface-2);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .dot.active { background: var(--accent); transform: scale(1.3); }
+        .dot:hover:not(.active) { background: var(--muted); }
+
+        .slide-counter {
+            font-size: 0.8rem;
+            color: var(--muted);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .hint {
+            position: fixed;
+            bottom: 4.5rem;
+            right: 2rem;
+            font-size: 0.72rem;
+            color: var(--muted);
+            opacity: 0.6;
+        }
+
+        @media (max-width: 900px) {
+            .slide { padding: 2rem 1.5rem 5rem; }
+            .grid-2, .grid-3, .grid-4, .status-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+    <!-- SLIDE 1 — Portada -->
+    <section class="slide slide--hero active" data-slide="0">
+        <div class="tag">IMPADOC · Frontend</div>
+        <h1>Formato<br><span>Consumo</span></h1>
+        <p class="lead">
+            Aplicación React para gestionar entregas operativas, planes anuales de consumo,
+            inventario, solicitudes con flujo de aprobación, homologación del histórico Excel
+            y un panel operativo centralizado.
+        </p>
+        <div class="meta">
+            <div class="meta-item"><strong>React 18</strong> + Vite 5</div>
+            <div class="meta-item"><strong>Backend:</strong> Laravel API</div>
+            <div class="meta-item"><strong>Empresa:</strong> Impadoc S.A.</div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2 — ¿De qué trata? -->
+    <section class="slide" data-slide="1">
+        <div class="slide-label">Contexto</div>
+        <h2>¿De qué trata el programa?</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-icon">📦</div>
+                <h4>Problema que resuelve</h4>
+                <p>Centraliza el control de productos de aseo y consumibles: quién recibe qué, cuánto hay en stock, qué se pidió vs. qué se consumió históricamente, y cómo homologar datos del Excel legacy.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h4>Para quién es</h4>
+                <p>Personal operativo de almacén, supervisores que aprueban solicitudes, y administradores que gestionan inventario, precios históricos y el histórico Excel promovido.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔗</div>
+                <h4>Arquitectura</h4>
+                <p>Frontend SPA en React consume una API REST Laravel (Sanctum). El frontend muestra datos y formularios; las reglas de negocio (stock, estados, roles) las valida el backend.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h4>Referencia histórica</h4>
+                <p>Parte de los datos provienen del Excel <code>FORMATO CONSUMO Y PEDIDO PDTOS ASEO 2026.xlsx</code>, homologado y promovido al sistema sin modificar el original.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3 — Stack -->
+    <section class="slide" data-slide="2">
+        <div class="slide-label">Tecnología</div>
+        <h2>Stack del frontend</h2>
+        <div class="grid-4">
+            <div class="card">
+                <div class="card-icon">⚛️</div>
+                <h4>React 18</h4>
+                <p>Componentes funcionales para cada módulo/tab de la aplicación.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h4>Vite 5</h4>
+                <p>Dev server rápido y build de producción optimizado.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h4>Bootstrap 5</h4>
+                <p>Estilos, layout y Bootstrap Icons para la UI operativa.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h4>Fetch API</h4>
+                <p>Cliente HTTP centralizado en <code>src/services/api.js</code> con token Bearer.</p>
+            </div>
+        </div>
+        <h3>Puesta en marcha</h3>
+        <div class="code-block">
+            <span class="cmd">npm install</span><br>
+            <span class="comment"># .env → VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1</span><br>
+            <span class="cmd">npm run dev</span> &nbsp;&nbsp;<span class="comment"># → http://localhost:5173</span><br><br>
+            <span class="comment"># Backend en otra terminal:</span><br>
+            <span class="cmd">php artisan serve --host=127.0.0.1 --port=8000</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 4 — Módulos -->
+    <section class="slide" data-slide="3">
+        <div class="slide-label">Interfaz</div>
+        <h2>Módulos principales (tabs)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Tab</th><th>Componente</th><th>Qué hace</th><th>Auth</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Panel</strong></td>
+                        <td><code>App.jsx</code></td>
+                        <td>Resumen operativo: alertas, solicitudes, inventario, entregas y cola homologación</td>
+                        <td><span class="badge badge--pub">Consulta pública</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Registrar entrega</strong></td>
+                        <td><code>RegistroEntregas.jsx</code></td>
+                        <td>Alta y consulta de entregas; panel de stock del producto seleccionado</td>
+                        <td><span class="badge badge--auth">Guardar → login</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plan consumo anual</strong></td>
+                        <td><code>ConsumoAnio.jsx</code></td>
+                        <td>Planificación mensual por producto, semáforo y export Excel</td>
+                        <td><span class="badge badge--pub">Consulta pública</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pedido anual</strong></td>
+                        <td><code>FormatoPedido.jsx</code></td>
+                        <td>Pedidos programados por mes</td>
+                        <td><span class="badge badge--pub">Consulta pública</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inventario</strong></td>
+                        <td><code>Inventario.jsx</code></td>
+                        <td>Stock, entradas, ajustes, movimientos y alertas de consumo</td>
+                        <td><span class="badge badge--auth">Escritura → login</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Solicitudes</strong></td>
+                        <td><code>Solicitudes.jsx</code></td>
+                        <td>Alta, listado, filtros y transiciones de estado</td>
+                        <td><span class="badge badge--auth">Mixto + RBAC</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Homologación</strong></td>
+                        <td><code>HomologacionHistorica.jsx</code></td>
+                        <td>Cola staging, homologación manual/bulk, validación y promoción</td>
+                        <td><span class="badge badge--auth">Escritura → login</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SLIDE 5 — Flujo general -->
+    <section class="slide" data-slide="4">
+        <div class="slide-label">Flujo operativo</div>
+        <h2>Cómo funciona en el día a día</h2>
+        <div class="flow" style="margin-bottom: 1.5rem;">
+            <div class="flow-step"><strong>1</strong>Solicitud<br><small>Almacén crea pedido</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><strong>2</strong>Aprobación<br><small>Supervisor aprueba</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><strong>3</strong>Entrega<br><small>Registro operativo</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><strong>4</strong>Inventario<br><small>Stock actualizado</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><strong>5</strong>Semáforo<br><small>Alerta si varía</small></div>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h4>🔄 Solicitud → Entrega vinculada</h4>
+                <p>En una solicitud <strong>aprobada</strong>, el botón <em>Registrar entrega</em> abre el tab de Entregas con el <code>solicitud_id</code> prellenado (Block 6.4).</p>
+            </div>
+            <div class="card">
+                <h4>📈 Semáforo de consumo (Block 7)</h4>
+                <p>Compara consumo del mes vs. promedio histórico. Verde / amarillo / rojo. Botón <em>Generar alertas del mes</em> evalúa variaciones (requiere login).</p>
+            </div>
+            <div class="card">
+                <h4>💰 Precios históricos (Block 8)</h4>
+                <p>Precio unitario automático en solicitudes. Botón <em>Sugerir dinero del mes</em> en consumo anual = cantidad × precio vigente.</p>
+            </div>
+            <div class="card">
+                <h4>📋 Homologación Excel (Block 6.5)</h4>
+                <p>Datos del Excel entran a <em>staging</em> → homologación manual o masiva → validación → promoción al histórico oficial (Block 4 protegido).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 6 — Autenticación -->
+    <section class="slide" data-slide="5">
+        <div class="slide-label">Seguridad</div>
+        <h2>Autenticación y permisos</h2>
+        <div class="grid-2">
+            <div>
+                <h3>Login mínimo (Block 6.2)</h3>
+                <div class="card" style="margin-bottom: 1rem;">
+                    <p style="font-size:0.88rem;line-height:1.7;color:var(--muted);">
+                        Botón <strong>Ingresar</strong> en navbar → modal de login.<br>
+                        Token en <code>localStorage.auth_token</code>.<br>
+                        Enviado como <code>Authorization: Bearer</code> en cada petición.<br>
+                        Servicio: <code>authService.js</code>
+                    </p>
+                </div>
+                <h3>RBAC Solicitudes (Block 6.6)</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Rol</th><th>Permisos</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>almacen</strong></td><td>No puede crear solicitudes</td></tr>
+                            <tr><td><strong>solicitante</strong></td><td>Crea y edita pendientes</td></tr>
+                            <tr><td><strong>supervisor / admin</strong></td><td>Aprobar, rechazar, cancelar</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h3>Qué requiere sesión activa</h3>
+                <ul class="rules">
+                    <li><span class="num">✓</span> Crear, aprobar, rechazar o cancelar solicitudes</li>
+                    <li><span class="num">✓</span> Guardar entregas e inventario (inicial / entrada / ajuste)</li>
+                    <li><span class="num">✓</span> Homologar, validar y promover staging histórico</li>
+                    <li><span class="num">✓</span> Generar alertas del semáforo de consumo</li>
+                    <li><span class="num">✓</span> Registrar precios históricos</li>
+                </ul>
+                <h3 style="margin-top:1.25rem;">Qué es público</h3>
+                <ul class="rules">
+                    <li><span class="num">○</span> Listados de solicitudes, entregas e inventario</li>
+                    <li><span class="num">○</span> Consulta de cola y resumen de homologación</li>
+                    <li><span class="num">○</span> Plan de consumo, pedido anual y panel</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7 — Servicios API -->
+    <section class="slide" data-slide="6">
+        <div class="slide-label">Capa de datos</div>
+        <h2>Servicios API (<code>src/services/</code>)</h2>
+        <div class="grid-3">
+            <div class="card"><h4><code>api.js</code></h4><p>Cliente HTTP base, token Bearer, helpers get/post/put/patch/delete</p></div>
+            <div class="card"><h4><code>authService.js</code></h4><p>Login, logout, getCurrentUser() / me()</p></div>
+            <div class="card"><h4><code>catalogosService.js</code></h4><p>Áreas, categorías, productos</p></div>
+            <div class="card"><h4><code>entregasService.js</code></h4><p>Entregas operativas</p></div>
+            <div class="card"><h4><code>inventarioService.js</code></h4><p>Inventarios, entradas, ajustes, movimientos</p></div>
+            <div class="card"><h4><code>solicitudesService.js</code></h4><p>CRUD solicitudes, aprobar/rechazar/cancelar</p></div>
+            <div class="card"><h4><code>semaforoService.js</code></h4><p>Semáforo consumo vs promedio histórico</p></div>
+            <div class="card"><h4><code>preciosService.js</code></h4><p>Precios históricos y cálculo de subtotales</p></div>
+            <div class="card"><h4><code>dashboardService.js</code></h4><p>Resumen del panel operativo</p></div>
+        </div>
+        <p style="margin-top:1rem;font-size:0.82rem;color:var(--muted);">
+            + <code>alertasService.js</code> (alertas inventario) · <code>stagingHomologacionService.js</code> (staging, validate/promote)
+        </p>
+    </section>
+
+    <!-- SLIDE 8 — Arquitectura -->
+    <section class="slide" data-slide="7">
+        <div class="slide-label">Estructura</div>
+        <h2>Componentes principales</h2>
+        <div class="tree">
+            <span class="dir">src/</span><br>
+            &nbsp;&nbsp;<span class="file">App.jsx</span> <span class="note">← Shell, tabs, auth en navbar</span><br>
+            &nbsp;&nbsp;<span class="dir">components/</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">RegistroEntregas.jsx</span> <span class="note">Entregas + stock panel</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">ConsumoAnio.jsx</span> <span class="note">Plan consumo anual + semáforo</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">FormatoPedido.jsx</span> <span class="note">Pedido anual</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">Inventario.jsx</span> <span class="note">Inventario operativo + alertas</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">Solicitudes.jsx</span> <span class="note">Flujo solicitudes + paginación</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">HomologacionHistorica.jsx</span> <span class="note">Staging + homologación bulk</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">LoginModal.jsx</span> <span class="note">Login mínimo</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">ui/</span> <span class="note">Alert, Badge, Button reutilizables</span><br>
+            &nbsp;&nbsp;<span class="dir">services/</span> <span class="note">Capa API (12 servicios)</span><br>
+            &nbsp;&nbsp;<span class="file">index.css</span> <span class="note">Estilos globales</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 9 — Reglas -->
+    <section class="slide" data-slide="8">
+        <div class="slide-label">Equipo</div>
+        <h2>Reglas del equipo</h2>
+        <ul class="rules">
+            <li><span class="num">1</span> El <strong>backend</strong> valida stock, unidades y estados — el frontend no duplica esas reglas de negocio.</li>
+            <li><span class="num">2</span> No modificar datos del <strong>Block 4</strong> (histórico Excel promovido) sin autorización explícita.</li>
+            <li><span class="num">3</span> Productos <strong>2</strong> y <strong>28</strong>: inventario real protegido — no usar en pruebas destructivas.</li>
+            <li><span class="num">4</span> No ejecutar seeders ni operaciones POST/PUT/PATCH/DELETE contra la BD real sin autorización.</li>
+            <li><span class="num">5</span> Para probar auth en local: <code>UserSeeder</code> en backend → <code>solicitante@impadoc.test</code> / <code>password</code></li>
+        </ul>
+        <h3 style="margin-top:1.5rem;">Flujo colaborativo</h3>
+        <div class="code-block" style="margin-top:0.5rem;">
+            <span class="cmd">git pull</span> <span class="comment"># antes de empezar</span><br>
+            <span class="cmd">git add . && git commit -m "descripción clara" && git push</span><br>
+            <span class="comment"># Ramas opcionales: feature/nombre-tarea → Pull Request en GitHub</span>
+        </div>
+    </section>
+
+    <!-- SLIDE 10 — Estado -->
+    <section class="slide" data-slide="9">
+        <div class="slide-label">Roadmap</div>
+        <h2>Estado del proyecto (jul 2026)</h2>
+        <div class="status-grid">
+            <div class="status-item"><span class="status-dot"></span> Consumo anual + Pedido anual</div>
+            <div class="status-item"><span class="status-dot"></span> Registro entregas + stock panel</div>
+            <div class="status-item"><span class="status-dot"></span> Inventario operativo + alertas</div>
+            <div class="status-item"><span class="status-dot"></span> Homologación histórica (UI + API)</div>
+            <div class="status-item"><span class="status-dot"></span> Block 4 histórico Excel intacto</div>
+            <div class="status-item"><span class="status-dot"></span> Auth Sanctum (login/me/logout)</div>
+            <div class="status-item"><span class="status-dot"></span> UI módulo Solicitudes + RBAC</div>
+            <div class="status-item"><span class="status-dot"></span> Semáforo por promedio histórico</div>
+            <div class="status-item"><span class="status-dot"></span> Precios históricos automáticos (MVP)</div>
+            <div class="status-item"><span class="status-dot"></span> Panel operativo / dashboard (MVP)</div>
+        </div>
+        <h3 style="margin-top:1.5rem;">Pendiente (mejoras futuras)</h3>
+        <div class="grid-2" style="margin-top:0.5rem;">
+            <div class="card"><h4>🔧 UI homologación</h4><p>Compactar interfaz de homologación histórica para mejor usabilidad.</p></div>
+            <div class="card"><h4>📤 Export Consumo Año</h4><p>Exportación completa del módulo de consumo anual a Excel.</p></div>
+        </div>
+        <p style="margin-top:1.5rem;font-size:0.9rem;color:var(--muted);">
+            Backend: <a href="https://github.com/AstroSavant08/formato-consumo-backend" style="color:var(--accent-light);">github.com/AstroSavant08/formato-consumo-backend</a>
+        </p>
+    </section>
+
+</div>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+    <button class="nav-btn" id="prev" aria-label="Anterior">←</button>
+    <div class="progress" id="dots"></div>
+    <span class="slide-counter" id="counter">1 / 10</span>
+    <button class="nav-btn" id="next" aria-label="Siguiente">→</button>
+</nav>
+<p class="hint">← → flechas del teclado</p>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    let current = 0;
+
+    const dotsEl = document.getElementById('dots');
+    const counterEl = document.getElementById('counter');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+
+    slides.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+    });
+
+    const dots = dotsEl.querySelectorAll('.dot');
+
+    function goTo(index) {
+        if (index < 0 || index >= total) return;
+        slides[current].classList.remove('active');
+        slides[current].classList.add('prev');
+        dots[current].classList.remove('active');
+
+        current = index;
+
+        slides.forEach((s, i) => {
+            s.classList.remove('active', 'prev');
+            if (i < current) s.classList.add('prev');
+        });
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+
+        counterEl.textContent = `${current + 1} / ${total}`;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === total - 1;
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+        if (e.key === 'Home') goTo(0);
+        if (e.key === 'End') goTo(total - 1);
+    });
+
+    goTo(0);
+</script>
+</body>
+</html>
