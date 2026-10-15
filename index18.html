@@ -6,23 +6,22 @@
     <title>Prueba F</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f8fafc;
-            --bg-elevated: #ffffff;
-            --surface: #f1f5f9;
-            --border: #e2e8f0;
-            --text: #0f172a;
-            --text-muted: #64748b;
-            --accent: #0d9488;
-            --accent-dark: #0f766e;
-            --accent-glow: rgba(13, 148, 136, 0.2);
-            --radius: 16px;
-            --radius-sm: 10px;
-            --shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.06),
-                      0 20px 40px -12px rgba(15, 23, 42, 0.12);
-            --font: "Plus Jakarta Sans", system-ui, sans-serif;
+            --bg-deep: #0a0908;
+            --bg: #11100e;
+            --panel: rgba(22, 21, 19, 0.72);
+            --line: rgba(196, 165, 116, 0.22);
+            --line-strong: rgba(196, 165, 116, 0.45);
+            --gold: #c4a574;
+            --gold-light: #dbc9a8;
+            --gold-dim: rgba(196, 165, 116, 0.15);
+            --text: #ece8e1;
+            --text-muted: #9c968c;
+            --serif: "Cormorant Garamond", "Times New Roman", serif;
+            --sans: "Outfit", system-ui, sans-serif;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         *,
@@ -31,220 +30,319 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
-            font-family: var(--font);
-            font-size: 1rem;
-            line-height: 1.6;
+            font-family: var(--sans);
+            font-weight: 300;
+            font-size: 0.9375rem;
+            line-height: 1.7;
             color: var(--text);
-            background: var(--bg);
-            background-image:
-                radial-gradient(ellipse 70% 45% at 10% 0%, rgba(13, 148, 136, 0.12), transparent),
-                radial-gradient(ellipse 50% 35% at 90% 80%, rgba(99, 102, 241, 0.08), transparent);
+            background: var(--bg-deep);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 90% 60% at 50% -10%, rgba(196, 165, 116, 0.09), transparent 55%),
+                radial-gradient(ellipse 50% 40% at 100% 50%, rgba(196, 165, 116, 0.04), transparent),
+                linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 40%, #0d0c0a 100%);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         .page {
-            max-width: 640px;
+            position: relative;
+            z-index: 1;
+            max-width: 520px;
             margin: 0 auto;
-            padding: clamp(1.5rem, 5vw, 3rem) 1.25rem 4rem;
+            padding: clamp(2.5rem, 8vh, 4.5rem) 1.5rem 5rem;
+            animation: reveal 1s var(--ease) both;
         }
 
-        .header {
-            margin-bottom: 2rem;
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page {
+                animation: none;
+            }
+        }
+
+        .eyebrow {
+            display: block;
+            margin-bottom: 1rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
         }
 
         .header h1 {
-            margin: 0 0 0.5rem;
-            font-size: clamp(1.875rem, 4vw, 2.375rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            background: linear-gradient(135deg, var(--text) 0%, var(--accent-dark) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            margin: 0 0 1rem;
+            font-family: var(--serif);
+            font-size: clamp(2.75rem, 8vw, 3.75rem);
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            color: var(--text);
+        }
+
+        .header h1 em {
+            font-style: normal;
+            font-weight: 500;
+            color: var(--gold-light);
         }
 
         .lead {
             margin: 0;
+            max-width: 36ch;
+            font-size: 0.9375rem;
+            font-weight: 300;
             color: var(--text-muted);
-            font-size: 1.0625rem;
+        }
+
+        .ornament {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2.5rem 0 2.75rem;
+            color: var(--line-strong);
+        }
+
+        .ornament::before,
+        .ornament::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--line), transparent);
+        }
+
+        .ornament span {
+            font-family: var(--serif);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            opacity: 0.85;
         }
 
         .card {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.75rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
+            padding: 2rem 2rem 2.25rem;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            margin-bottom: 2.5rem;
         }
 
         .card-title {
-            margin: 0 0 1.25rem;
-            padding-bottom: 0.75rem;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            color: var(--accent-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            border-bottom: 2px solid var(--surface);
+            margin: 0 0 2rem;
+            font-family: var(--serif);
+            font-size: 1.375rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--gold-light);
         }
 
         form {
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 1.75rem;
         }
 
         .field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+            position: relative;
         }
 
         label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
         }
 
         input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            font-family: inherit;
+            padding: 0.65rem 0 0.75rem;
+            font-family: var(--sans);
             font-size: 1rem;
+            font-weight: 300;
             color: var(--text);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--line);
+            border-radius: 0;
+            transition: border-color 0.35s var(--ease), padding 0.35s var(--ease);
         }
 
         input::placeholder {
-            color: var(--text-muted);
+            color: rgba(156, 150, 140, 0.55);
+            font-weight: 300;
         }
 
         input:hover {
-            border-color: #cbd5e1;
+            border-bottom-color: var(--line-strong);
         }
 
         input:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px var(--accent-glow);
-            background: var(--bg-elevated);
+            border-bottom-color: var(--gold);
+            padding-bottom: 0.85rem;
+        }
+
+        .field:focus-within label {
+            color: var(--gold);
         }
 
         button[type="submit"] {
-            margin-top: 0.25rem;
-            padding: 0.9rem 1.5rem;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fff;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            align-self: flex-start;
+            margin-top: 0.75rem;
+            padding: 0.85rem 2.25rem;
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--bg-deep);
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
             border: none;
-            border-radius: var(--radius-sm);
             cursor: pointer;
-            transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
-            box-shadow: 0 4px 12px var(--accent-glow);
+            transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), filter 0.4s var(--ease);
+            box-shadow: 0 8px 32px rgba(196, 165, 116, 0.18);
         }
 
         button[type="submit"]:hover {
-            filter: brightness(1.05);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px var(--accent-glow);
+            filter: brightness(1.06);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 40px rgba(196, 165, 116, 0.28);
         }
 
         button[type="submit"]:active {
             transform: translateY(0);
         }
 
-        .table-wrap {
-            overflow: hidden;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: var(--bg-elevated);
-            box-shadow: var(--shadow);
+        .stack {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
-        .table-wrap h2 {
+        .stack-head {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .stack-head h2 {
             margin: 0;
-            padding: 1.25rem 1.75rem;
-            font-size: 1rem;
-            font-weight: 600;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .stack-head p {
+            margin: 0.35rem 0 0;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9375rem;
         }
 
         th {
-            padding: 0.75rem 1.75rem;
+            padding: 0.875rem 2rem;
             text-align: left;
-            font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
             color: var(--text-muted);
-            background: var(--bg);
+            border-bottom: 1px solid var(--line);
         }
 
         td {
-            padding: 1rem 1.75rem;
-            border-top: 1px solid var(--border);
+            padding: 1.25rem 2rem;
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            border-bottom: 1px solid rgba(196, 165, 116, 0.08);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
         tbody tr {
-            transition: background 0.15s;
+            transition: background 0.4s var(--ease);
         }
 
         tbody tr:hover {
-            background: rgba(13, 148, 136, 0.04);
+            background: var(--gold-dim);
         }
 
-        .pill {
-            display: inline-block;
-            padding: 0.3rem 0.75rem;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            border-radius: 999px;
+        td:first-child {
+            color: var(--gold-light);
         }
 
-        .pill--backend {
-            color: #4338ca;
-            background: #eef2ff;
-        }
-
-        .pill--frontend {
-            color: #0369a1;
-            background: #e0f2fe;
+        td:last-child {
+            color: var(--text);
         }
     </style>
 </head>
 <body>
     <main class="page">
         <header class="header">
-            <h1>Prueba F</h1>
-            <p class="lead">Por favor diligencie el siguiente formulario:</p>
+            <span class="eyebrow">Registro</span>
+            <h1>Prueba <em>F</em></h1>
+            <p class="lead">Por favor diligencie el siguiente formulario con sus datos personales.</p>
         </header>
+
+        <div class="ornament" aria-hidden="true"><span>◆</span></div>
 
         <section class="card" aria-labelledby="form-title">
             <h2 id="form-title" class="card-title">Formulario</h2>
             <form>
                 <div class="field">
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" autocomplete="name">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" autocomplete="name">
                 </div>
                 <div class="field">
                     <label for="edad">Edad</label>
-                    <input type="number" id="edad" name="edad" placeholder="Edad" min="1" max="120">
+                    <input type="number" id="edad" name="edad" placeholder="Años" min="1" max="120">
                 </div>
                 <div class="field">
                     <label for="correo">Correo</label>
@@ -254,8 +352,11 @@
             </form>
         </section>
 
-        <div class="table-wrap">
-            <h2>Stack</h2>
+        <div class="stack">
+            <div class="stack-head">
+                <h2>Stack tecnológico</h2>
+                <p>Componentes de la arquitectura</p>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -265,8 +366,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><span class="pill pill--backend">Node.js</span></td>
-                        <td><span class="pill pill--frontend">React</span></td>
+                        <td>Node.js</td>
+                        <td>React</td>
                     </tr>
                 </tbody>
             </table>
