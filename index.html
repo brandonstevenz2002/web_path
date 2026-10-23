@@ -1,34 +1,331 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>MTTO</title>
-    </head>
-    <body>
-        <h1>Mantenimiento preventivo</h1>
-        <p>Por favor diligencie el siguiente formulario:</p>
-    <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre">
-        <br><br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad">
-        <br><br>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo">
-        <br><br>
-        <button type="submite">Enviar</button>
-        <br><br>
-    </form>
-    <table border="1">
-        <tr>
-            <th>Backend</th>
-            <th>Frontend</th>
-        </tr>
-        <tr>
-            <td>Node.js</td>
-            <td>React</td>
-        </tr>
-    </table>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MTTO — Mantenimiento preventivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #f7f3eb;
+            --paper-warm: #efe8dc;
+            --ink: #1a2421;
+            --ink-soft: #3d4a46;
+            --muted: #6b756f;
+            --forest: #1e3a32;
+            --forest-deep: #152922;
+            --gold: #9a7b4f;
+            --gold-light: #c4a574;
+            --rule: rgba(30, 58, 50, 0.15);
+            --serif: "Cormorant Garamond", Georgia, serif;
+            --body: "Libre Baskerville", Georgia, serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: var(--body);
+            font-size: 0.9375rem;
+            line-height: 1.75;
+            color: var(--ink-soft);
+            background: var(--paper);
+            background-image:
+                radial-gradient(ellipse 100% 80% at 50% -20%, rgba(154, 123, 79, 0.08), transparent 50%),
+                linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
+        }
+
+        .letterhead {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: clamp(2.5rem, 8vh, 4.5rem) 1.75rem 4rem;
+        }
+
+        .crest {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2.75rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .crest-mark {
+            width: 52px;
+            height: 52px;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-family: var(--serif);
+            font-size: 1.375rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--forest);
+            letter-spacing: 0.05em;
+        }
+
+        .crest-mark::before {
+            content: "M";
+        }
+
+        .crest-kicker {
+            margin: 0 0 0.5rem;
+            font-family: var(--body);
+            font-size: 0.625rem;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .crest h1 {
+            margin: 0 0 0.65rem;
+            font-family: var(--serif);
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            line-height: 1.15;
+            color: var(--forest-deep);
+        }
+
+        .crest .intro {
+            margin: 0;
+            max-width: 38ch;
+            font-size: 0.875rem;
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .form-block {
+            margin-bottom: 3rem;
+        }
+
+        .form-block legend {
+            display: block;
+            width: 100%;
+            margin-bottom: 1.75rem;
+            padding-bottom: 0.65rem;
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--forest);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .field {
+            display: grid;
+            gap: 0.4rem;
+        }
+
+        label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.6rem 0;
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--ink);
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--rule);
+            border-radius: 0;
+            transition: border-color 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(107, 117, 111, 0.55);
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-bottom-color: var(--gold);
+        }
+
+        .field:focus-within label {
+            color: var(--forest);
+        }
+
+        button[type="submit"] {
+            align-self: flex-start;
+            margin-top: 0.5rem;
+            padding: 0.75rem 2.5rem;
+            font-family: var(--body);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--paper);
+            background: var(--forest-deep);
+            border: 1px solid var(--forest-deep);
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background: transparent;
+            color: var(--forest-deep);
+        }
+
+        .registry {
+            padding-top: 0.5rem;
+        }
+
+        .registry-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--forest);
+        }
+
+        .registry-header h2 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--forest-deep);
+        }
+
+        .registry-header span {
+            font-size: 0.625rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .table-frame {
+            border: 1px solid var(--rule);
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 0.875rem 1.25rem;
+            text-align: left;
+            font-family: var(--body);
+            font-size: 0.625rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: var(--paper-warm);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+            font-family: var(--serif);
+            font-size: 1.1875rem;
+            color: var(--ink);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: background 0.25s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(30, 58, 50, 0.04);
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--rule);
+            text-align: center;
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <article class="letterhead">
+        <header class="crest">
+            <div class="crest-mark" aria-hidden="true"></div>
+            <p class="crest-kicker">MTTO · Est. servicio</p>
+            <h1>Mantenimiento preventivo</h1>
+            <p class="intro">Por favor diligencie el siguiente formulario:</p>
+        </header>
+
+        <section class="form-block">
+            <form>
+                <legend>Registro del solicitante</legend>
+                <div class="field">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre y apellido" autocomplete="name">
+                </div>
+                <div class="field">
+                    <label for="edad">Edad</label>
+                    <input type="number" id="edad" name="edad" placeholder="Años cumplidos" min="1" max="120">
+                </div>
+                <div class="field">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" placeholder="correspondencia@dominio.com" autocomplete="email">
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+
+        <section class="registry" aria-labelledby="stack-label">
+            <div class="registry-header">
+                <h2 id="stack-label">Stack tecnológico</h2>
+                <span>Referencia</span>
+            </div>
+            <div class="table-frame">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Backend</th>
+                            <th scope="col">Frontend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Node.js</td>
+                            <td>React</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>Documento confidencial · Uso interno</footer>
+    </article>
+</body>
 </html>
