@@ -1,34 +1,556 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>MTTO</title>
-    </head>
-    <body>
-        <h1>Mantenimiento preventivo</h1>
-        <p>Diligencia el siguiente formulario:</p>
-    <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre">
-        <br><br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad">
-        <br><br>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo">
-        <br><br>
-        <button type="submit">Enviar</button>
-        <br><br>
-    </form>
-    <table border="1">
-        <tr>
-            <th>Backend</th>
-            <th>frontend</th>
-        </tr>
-        <tr>
-            <td>Node.js</td>
-            <td>React</td>
-        </tr>
-    </table>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MTTO — Mantenimiento preventivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #050505;
+            --elevated: #0e0d0b;
+            --panel: #121110;
+            --gold: #d4af6a;
+            --gold-light: #f0e0bc;
+            --gold-deep: #8a7040;
+            --gold-glow: rgba(212, 175, 106, 0.22);
+            --cream: #f7f2e8;
+            --muted: #9a9185;
+            --line: rgba(212, 175, 106, 0.22);
+            --display: "Cinzel", serif;
+            --accent-serif: "Cormorant Garamond", Georgia, serif;
+            --ui: "Manrope", system-ui, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: var(--ui);
+            font-weight: 300;
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: var(--cream);
+            background: var(--black);
+        }
+
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 90% 55% at 50% -5%, rgba(212, 175, 106, 0.14), transparent 50%),
+                radial-gradient(ellipse 45% 35% at 0% 100%, rgba(212, 175, 106, 0.06), transparent),
+                radial-gradient(ellipse 45% 35% at 100% 100%, rgba(120, 100, 70, 0.08), transparent),
+                var(--black);
+        }
+
+        .backdrop::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.85);
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        .page {
+            position: relative;
+            z-index: 2;
+            max-width: 740px;
+            margin: 0 auto;
+            padding: clamp(2.5rem, 9vh, 4.5rem) 1.5rem 4rem;
+        }
+
+        .masthead {
+            text-align: center;
+            margin-bottom: 2.75rem;
+        }
+
+        .emblem {
+            position: relative;
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 1.75rem;
+        }
+
+        .emblem::before {
+            content: "";
+            position: absolute;
+            inset: -6px;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .emblem-inner {
+            display: grid;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            background: radial-gradient(circle at 35% 25%, rgba(212, 175, 106, 0.2), transparent 55%);
+            box-shadow: 0 0 48px var(--gold-glow);
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            text-indent: 0.28em;
+            color: var(--gold-light);
+        }
+
+        .kicker {
+            display: block;
+            margin-bottom: 0.85rem;
+            font-family: var(--display);
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.42em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .masthead h1 {
+            margin: 0 0 0.85rem;
+            font-family: var(--display);
+            font-size: clamp(1.75rem, 4.5vw, 2.375rem);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            line-height: 1.25;
+        }
+
+        .masthead .intro {
+            margin: 0 auto;
+            max-width: 34ch;
+            font-family: var(--accent-serif);
+            font-size: 1.1875rem;
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .ornament {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0 2.25rem;
+        }
+
+        .ornament::before,
+        .ornament::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--line), transparent);
+        }
+
+        .ornament span {
+            font-size: 0.5rem;
+            letter-spacing: 0.35em;
+            color: var(--gold-deep);
+        }
+
+        .folio {
+            position: relative;
+            padding: 1px;
+            margin-bottom: 2.75rem;
+            background: linear-gradient(145deg, rgba(212, 175, 106, 0.45), rgba(212, 175, 106, 0.05) 40%, rgba(212, 175, 106, 0.25));
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55);
+        }
+
+        .folio-body {
+            padding: 2rem clamp(1.35rem, 4vw, 2.25rem) 2.25rem;
+            background: linear-gradient(180deg, var(--panel) 0%, var(--elevated) 100%);
+        }
+
+        .folio-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.5rem 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .folio-head h2 {
+            margin: 0;
+            font-family: var(--display);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+        }
+
+        .folio-head span {
+            font-size: 0.625rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        form {
+            display: grid;
+            gap: 1.35rem;
+        }
+
+        @media (min-width: 580px) {
+            form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .field--full {
+                grid-column: 1 / -1;
+            }
+
+            .form-actions {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 0.45rem;
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.25s;
+        }
+
+        .control {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            min-height: 52px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--line);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .control:focus-within {
+            border-color: rgba(212, 175, 106, 0.55);
+            box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.15), 0 8px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        .field:focus-within label {
+            color: var(--gold-light);
+        }
+
+        .control input {
+            flex: 1;
+            min-width: 0;
+            padding: 0.85rem 1rem;
+            font-family: var(--accent-serif);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--cream);
+            background: transparent;
+            border: none;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .control input::placeholder {
+            color: rgba(154, 145, 133, 0.45);
+            font-family: var(--ui);
+            font-size: 0.875rem;
+            font-weight: 300;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        .stepper {
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--line);
+        }
+
+        .stepper button {
+            flex: 1;
+            width: 44px;
+            padding: 0;
+            font-family: var(--display);
+            font-size: 0.875rem;
+            line-height: 1;
+            color: var(--gold);
+            background: rgba(212, 175, 106, 0.06);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .stepper button:first-child {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .stepper button:hover {
+            background: rgba(212, 175, 106, 0.16);
+            color: var(--gold-light);
+        }
+
+        .stepper button:active {
+            background: rgba(212, 175, 106, 0.28);
+        }
+
+        .form-actions {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+        }
+
+        button[type="submit"] {
+            position: relative;
+            padding: 1rem 3rem;
+            font-family: var(--display);
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--black);
+            background: linear-gradient(110deg, #faf0d5 0%, var(--gold) 45%, var(--gold-deep) 100%);
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+            box-shadow: 0 12px 40px var(--gold-glow);
+        }
+
+        button[type="submit"]::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.45) 50%, transparent 58%);
+            transform: translateX(-120%);
+            transition: transform 0.7s ease;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 48px rgba(212, 175, 106, 0.38);
+        }
+
+        button[type="submit"]:hover::after {
+            transform: translateX(120%);
+        }
+
+        .portfolio-head {
+            margin-bottom: 1.25rem;
+        }
+
+        .portfolio-head h2 {
+            margin: 0 0 0.35rem;
+            font-family: var(--display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .portfolio-head p {
+            margin: 0;
+            font-family: var(--accent-serif);
+            font-size: 1.0625rem;
+            color: var(--muted);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+
+        @media (max-width: 520px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .portfolio-card {
+            padding: 1.35rem 1.25rem 1.5rem;
+            background: var(--elevated);
+            transition: background 0.35s;
+        }
+
+        .portfolio-card:hover {
+            background: rgba(212, 175, 106, 0.04);
+        }
+
+        .portfolio-card header {
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(212, 175, 106, 0.12);
+            font-family: var(--display);
+            font-size: 0.5625rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            line-height: 1.5;
+            text-transform: uppercase;
+            color: var(--gold-light);
+        }
+
+        .portfolio-card strong {
+            display: block;
+            font-family: var(--accent-serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--cream);
+        }
+
+        .portfolio-card em {
+            display: block;
+            margin-top: 0.35rem;
+            font-family: var(--ui);
+            font-size: 0.6875rem;
+            font-style: normal;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.5625rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(154, 145, 133, 0.55);
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: var(--cream);
+            -webkit-box-shadow: 0 0 0 1000px #0a0908 inset;
+            transition: background-color 9999s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="page">
+        <header class="masthead">
+            <div class="emblem">
+                <div class="emblem-inner">MT</div>
+            </div>
+            <span class="kicker">Private Estate · MTTO</span>
+            <h1>Mantenimiento preventivo</h1>
+            <p class="intro">Diligencie el siguiente formulario:</p>
+        </header>
+
+        <div class="ornament" aria-hidden="true"><span>◆ ◆ ◆</span></div>
+
+        <section class="folio" aria-label="Formulario">
+            <div class="folio-body">
+                <div class="folio-head">
+                    <h2>Registro confidencial</h2>
+                    <span>Ref. solicitud · 2026</span>
+                </div>
+                <form>
+                    <div class="field field--full">
+                        <label for="nombre">Nombre</label>
+                        <div class="control">
+                            <input type="text" id="nombre" name="nombre" placeholder="Como aparece en documento" autocomplete="name">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="edad">Edad</label>
+                        <div class="control">
+                            <input type="number" id="edad" name="edad" placeholder="Años" min="1" max="120" inputmode="numeric">
+                            <div class="stepper">
+                                <button type="button" data-step="up" aria-label="Aumentar edad">+</button>
+                                <button type="button" data-step="down" aria-label="Disminuir edad">−</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="correo">Correo</label>
+                        <div class="control">
+                            <input type="email" id="correo" name="correo" placeholder="Correspondencia privada" autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit">Enviar solicitud</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section aria-labelledby="portfolio-title">
+            <div class="portfolio-head">
+                <h2 id="portfolio-title">Portafolio de intervención</h2>
+                <p>Especialidades a su disposición</p>
+            </div>
+            <div class="portfolio-grid">
+                <article class="portfolio-card">
+                    <header>Mantenimiento correctivo</header>
+                    <strong>Electrico</strong>
+                    <em>Respuesta prioritaria</em>
+                </article>
+                <article class="portfolio-card">
+                    <header>Mantenimiento preventivo</header>
+                    <strong>Mecanico</strong>
+                    <em>Calendario de excelencia</em>
+                </article>
+            </div>
+        </section>
+
+        <footer>Discreción absoluta · Acceso restringido</footer>
+    </div>
+
+    <script>
+        (function () {
+            var edad = document.getElementById("edad");
+            var stepper = document.querySelector(".stepper");
+            if (!edad || !stepper) return;
+
+            stepper.querySelectorAll("button").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    var step = btn.getAttribute("data-step") === "up" ? 1 : -1;
+                    var min = Number(edad.min) || 1;
+                    var max = Number(edad.max) || 120;
+                    var val = parseInt(edad.value, 10);
+                    if (Number.isNaN(val)) val = min;
+                    val = Math.min(max, Math.max(min, val + step));
+                    edad.value = String(val);
+                    edad.dispatchEvent(new Event("input", { bubbles: true }));
+                });
+            });
+        })();
+    </script>
+</body>
 </html>
