@@ -9,12 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --white: #fafafa;
-            --black: #0a0a0a;
-            --gray-100: #f0f0f0;
-            --gray-400: #a3a3a3;
-            --gray-600: #525252;
-            --line: #e5e5e5;
+            --white: #f5f5f5;
+            --black: #050505;
+            --surface: #0f0f0f;
+            --surface-raised: #141414;
+            --gray-muted: #737373;
+            --gray-dim: #404040;
+            --line: rgba(255, 255, 255, 0.12);
+            --line-strong: rgba(255, 255, 255, 0.28);
             --serif: "Instrument Serif", Georgia, serif;
             --sans: "Inter", system-ui, sans-serif;
         }
@@ -32,8 +34,8 @@
             font-weight: 400;
             font-size: 0.9375rem;
             line-height: 1.65;
-            color: var(--black);
-            background: var(--white);
+            color: var(--white);
+            background: var(--black);
         }
 
         .layout {
@@ -50,8 +52,8 @@
             font-weight: 600;
             letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: var(--gray-600);
-            border-bottom: 2px solid var(--black);
+            color: var(--gray-muted);
+            border-bottom: 2px solid var(--white);
         }
 
         header h1 {
@@ -61,14 +63,14 @@
             font-weight: 400;
             letter-spacing: -0.02em;
             line-height: 1.08;
-            color: var(--black);
+            color: var(--white);
         }
 
         header p {
             margin: 0 0 2.75rem;
             font-size: 1rem;
             font-weight: 300;
-            color: var(--gray-600);
+            color: var(--gray-muted);
         }
 
         .section-rule {
@@ -83,7 +85,7 @@
             font-weight: 600;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--gray-600);
+            color: var(--gray-muted);
             white-space: nowrap;
         }
 
@@ -96,6 +98,9 @@
 
         .form-panel {
             margin-bottom: 3rem;
+            padding: 1.75rem 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
         }
 
         form {
@@ -124,7 +129,7 @@
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--gray-600);
+            color: var(--gray-muted);
         }
 
         .field input {
@@ -132,7 +137,7 @@
             padding: 0.75rem 0;
             font-family: var(--serif);
             font-size: 1.25rem;
-            color: var(--black);
+            color: var(--white);
             background: transparent;
             border: none;
             border-bottom: 1px solid var(--line);
@@ -142,7 +147,7 @@
         }
 
         .field input::placeholder {
-            color: var(--gray-400);
+            color: var(--gray-dim);
             font-family: var(--sans);
             font-size: 0.875rem;
             font-weight: 300;
@@ -150,7 +155,7 @@
 
         .field input:focus {
             outline: none;
-            border-bottom-color: var(--black);
+            border-bottom-color: var(--white);
         }
 
         input[type="number"]::-webkit-outer-spin-button,
@@ -173,20 +178,21 @@
             font-weight: 600;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--white);
-            background: var(--black);
-            border: 1px solid var(--black);
+            color: var(--black);
+            background: var(--white);
+            border: 1px solid var(--white);
             cursor: pointer;
-            transition: background 0.25s, color 0.25s;
+            transition: background 0.25s, color 0.25s, border-color 0.25s;
         }
 
         button[type="submit"]:hover {
             background: transparent;
-            color: var(--black);
+            color: var(--white);
         }
 
         .stack-wrap {
-            border: 1px solid var(--black);
+            border: 1px solid var(--line-strong);
+            background: var(--surface);
         }
 
         .stack-wrap h2 {
@@ -197,8 +203,8 @@
             font-weight: 600;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: var(--white);
-            background: var(--black);
+            color: var(--black);
+            background: var(--white);
         }
 
         table {
@@ -213,8 +219,8 @@
             font-weight: 600;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--gray-600);
-            background: var(--gray-100);
+            color: var(--gray-muted);
+            background: var(--surface-raised);
             border-bottom: 1px solid var(--line);
         }
 
@@ -222,6 +228,7 @@
             padding: 1.15rem 1.25rem;
             font-family: var(--serif);
             font-size: 1.375rem;
+            color: var(--white);
             border-bottom: 1px solid var(--line);
         }
 
@@ -234,7 +241,15 @@
         }
 
         tbody tr:hover {
-            background: var(--gray-100);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: var(--white);
+            -webkit-box-shadow: 0 0 0 1000px var(--surface) inset;
+            transition: background-color 9999s ease-out;
         }
 
         th + th,
