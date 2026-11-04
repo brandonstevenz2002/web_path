@@ -1,34 +1,448 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Prueba</title>
-    </head>
-    <body>
-        <h1>MTTO</h1>
-        <p>Diligencie el siguiente formulario</p>
-    <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre">
-        <br><br>
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad">
-        <br><br>
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo">
-        <br><br>
-        <button type="submit">Enviar</button>
-        <br><br>
-    </form>
-    <table border="1">
-        <tr>
-            <th>Backend</th>
-            <th>Frontend</th>
-        </tr>
-        <tr>
-            <th>Node.js</th>
-            <th>React</th>
-        </tr>
-    </table>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prueba — MTTO Private</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0908;
+            --gold: #d4af37;
+            --gold-light: #f4e4bc;
+            --gold-dark: #9a7b2f;
+            --cream: #faf6ef;
+            --display: "Bebas Neue", sans-serif;
+            --serif: "Playfair Display", Georgia, serif;
+            --sans: "Montserrat", system-ui, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: var(--sans);
+            font-weight: 400;
+            color: var(--cream);
+            background: var(--black);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 52vh;
+            display: flex;
+            align-items: flex-end;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(10, 9, 8, 0.35) 0%, rgba(10, 9, 8, 0.92) 75%, var(--black) 100%),
+                url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80") center / cover no-repeat;
+        }
+
+        .hero-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.12), transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            padding: 0.35rem 0.85rem;
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--black);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 2px;
+        }
+
+        .hero h1 {
+            margin: 0 0 0.35rem;
+            font-family: var(--display);
+            font-size: clamp(4rem, 14vw, 7rem);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            line-height: 0.9;
+            background: linear-gradient(180deg, #fff 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 4px 24px rgba(212, 175, 55, 0.35));
+        }
+
+        .hero p {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+            font-style: italic;
+            color: rgba(250, 246, 239, 0.85);
+        }
+
+        .lifestyle {
+            max-width: 900px;
+            margin: -1.5rem auto 0;
+            padding: 0 1.25rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .lifestyle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        @media (max-width: 640px) {
+            .lifestyle-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .lux-card {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        .lux-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .lux-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .lux-card figcaption {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1rem;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, transparent 55%);
+        }
+
+        .lux-card .tag {
+            font-family: var(--display);
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            color: var(--gold-light);
+        }
+
+        .lux-card .sub {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 4rem;
+        }
+
+        .gold-bar {
+            height: 3px;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+        }
+
+        .form-shell {
+            position: relative;
+            padding: 1px;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark), var(--gold));
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.15);
+        }
+
+        .form-inner {
+            padding: clamp(1.5rem, 4vw, 2rem);
+            background: linear-gradient(165deg, #141210 0%, #0a0908 100%);
+        }
+
+        .form-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-head h2 {
+            margin: 0;
+            font-family: var(--serif);
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
+        .form-head span {
+            font-size: 0.625rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        form {
+            display: grid;
+            gap: 1.15rem;
+        }
+
+        @media (min-width: 560px) {
+            form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .field--full {
+                grid-column: 1 / -1;
+            }
+
+            button[type="submit"] {
+                grid-column: 1 / -1;
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            color: var(--cream);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 2px;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        button[type="submit"] {
+            justify-self: start;
+            margin-top: 0.25rem;
+            padding: 1rem 2.5rem;
+            font-family: var(--display);
+            font-size: 1.125rem;
+            letter-spacing: 0.12em;
+            color: var(--black);
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.35);
+            transition: transform 0.2s, filter 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+        }
+
+        .stack-section h3 {
+            margin: 0 0 0.35rem;
+            font-family: var(--display);
+            font-size: 1.75rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-light);
+        }
+
+        .stack-section p {
+            margin: 0 0 1rem;
+            font-size: 0.8125rem;
+            color: rgba(250, 246, 239, 0.55);
+        }
+
+        .stack-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .stack-table th {
+            padding: 0.9rem 1.15rem;
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-align: left;
+            color: var(--black);
+            background: linear-gradient(180deg, var(--gold-light), var(--gold));
+        }
+
+        .stack-table td {
+            padding: 1.1rem 1.15rem;
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .stack-table td + td,
+        .stack-table th + th {
+            border-left: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-lux {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.625rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-content">
+            <div class="badges">
+                <span class="badge">Supercar</span>
+                <span class="badge">Swiss Made</span>
+                <span class="badge">Haute couture</span>
+            </div>
+            <h1>MTTO</h1>
+            <p>Diligencie el siguiente formulario</p>
+        </div>
+    </header>
+
+    <section class="lifestyle" aria-label="Estilo de vida">
+        <div class="lifestyle-grid">
+            <figure class="lux-card">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80" alt="Automóvil de lujo" width="600" height="750" loading="lazy">
+                <figcaption>
+                    <span class="tag">Automotive</span>
+                    <span class="sub">Prestige · Performance</span>
+                </figcaption>
+            </figure>
+            <figure class="lux-card">
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=600&q=80" alt="Reloj de lujo" width="600" height="750" loading="lazy">
+                <figcaption>
+                    <span class="tag">Horology</span>
+                    <span class="sub">Limited edition</span>
+                </figcaption>
+            </figure>
+            <figure class="lux-card">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="Moda de diseñador" width="600" height="750" loading="lazy">
+                <figcaption>
+                    <span class="tag">Maison</span>
+                    <span class="sub">Designer · Runway</span>
+                </figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <main class="main">
+        <div class="gold-bar" aria-hidden="true"></div>
+
+        <section class="form-shell" aria-label="Formulario">
+            <div class="form-inner">
+                <div class="form-head">
+                    <h2>Registro exclusivo</h2>
+                    <span>Members only</span>
+                </div>
+                <form>
+                    <div class="field field--full">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Titular de la cuenta" autocomplete="name">
+                    </div>
+                    <div class="field">
+                        <label for="edad">Edad</label>
+                        <input type="number" id="edad" name="edad" placeholder="—" min="1" max="120">
+                    </div>
+                    <div class="field">
+                        <label for="correo">Correo</label>
+                        <input type="email" id="correo" name="correo" placeholder="concierge@..." autocomplete="email">
+                    </div>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="stack-section" aria-labelledby="stack-head">
+            <h3 id="stack-head">Tech stack</h3>
+            <p>Infraestructura de élite para su operación digital.</p>
+            <table class="stack-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Backend</th>
+                        <th scope="col">Frontend</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Node.js</td>
+                        <td>React</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <p class="footer-lux">Luxury lifestyle · Private access · MTTO 2026</p>
+    </main>
+</body>
 </html>
