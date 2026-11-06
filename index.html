@@ -1,310 +1,34 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
+<html>
+    <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PB · MMTO</title>
-    
-    <!-- 🌟 CONFIGURACIÓN PARA LA PESTAÑA Y BARRA DEL NAVEGADOR 🌟 -->
-    <!-- Color de la barra de direcciones / borde superior (Chrome en Android, Edge, Safari iOS) -->
-    <meta name="theme-color" content="#1e1b4b">
-    
-    <!-- Icono de la pestaña (Favicon) generado con SVG en código (Un globo terráqueo con gradiente) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='50' fill='url(%23grad)'/%3E%3Cpath d='M50 20c-16.5 0-30 13.5-30 30s13.5 30 30 30 30-13.5 30-30-13.5-30-30-30zm-4 53.9c-11.8-1.5-21-10.7-22.5-22.5l16.5 16.5v2c0 2 1.5 3.5 3.5 3.5h2.5v.5zm16.9-9.4c-.6-1.3-1.9-2.2-3.4-2.2h-2v-6.9c0-1.1-.9-2-2-2H31.5v-5h5c1.1 0 2-.9 2-2V31.5h4.5c2.2 0 4-1.8 4-4v-3.4c11.1 2.2 20 11.2 22 22.2h-1.5c-2.2 0-4 1.8-4 4v4.5h-3.5c-2.2 0-4 1.8-4 4v4.5h-2.5v6.9h1.5c1.5 0 2.8-.9 3.4-2.2h.6z' fill='%23ffffff'/%3E%3C/svg%3E">
-    <!-- --------------------------------------------------------------- -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --accent: #ec4899;
-            --bg-start: #0f172a;
-            --bg-mid: #1e1b4b;
-            --bg-end: #312e81;
-            --card-bg: #ffffff;
-            --text-dark: #1e293b;
-            --border: #e2e8f0;
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-mid) 50%, var(--bg-end) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            position: relative;
-            overflow-x: hidden;
-            color: var(--text-dark);
-        }
-
-        /* Burbujas decorativas */
-        body::before, body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        body::before {
-            width: 400px; height: 400px;
-            background: rgba(99, 102, 241, 0.4);
-            top: -100px; left: -100px;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        body::after {
-            width: 350px; height: 350px;
-            background: rgba(236, 72, 153, 0.3);
-            bottom: -80px; right: -80px;
-            animation: float 10s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(30px, 30px); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 520px;
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 2.75rem);
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        h1::after {
-            content: '';
-            display: block;
-            width: 60px; height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-            margin: 12px auto 0;
-        }
-
-        .subtitle {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            font-weight: 300;
-            margin-top: 12px;
-        }
-
-        form {
-            background: var(--card-bg);
-            padding: 36px 32px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 28px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        form::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-
-        .form-group { margin-bottom: 22px; }
-
-        label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 0.95rem;
-            font-family: inherit;
-            color: var(--text-dark);
-            background: #f8fafc;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            outline: none;
-            transition: all 0.25s ease;
-        }
-
-        input::placeholder { color: #94a3b8; }
-        input:hover { border-color: #cbd5e1; }
-        input:focus {
-            border-color: var(--primary);
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-            transform: translateY(-1px);
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            padding: 15px;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: inherit;
-            color: #ffffff;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            letter-spacing: 0.03em;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-            margin-top: 8px;
-        }
-
-        button[type="submit"]::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-            transition: left 0.6s ease;
-        }
-
-        button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-        }
-
-        button[type="submit"]:hover::before { left: 100%; }
-        button[type="submit"]:active { transform: translateY(0); }
-
-        .table-wrapper {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border: none;
-        }
-
-        thead { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
-
-        th {
-            padding: 18px 24px;
-            text-align: left;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        td {
-            padding: 18px 24px;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            border-bottom: 1px solid var(--border);
-        }
-
-        tbody tr { transition: background 0.2s ease; }
-        tbody tr:hover { background: #f8fafc; }
-        tbody tr:last-child td { border-bottom: none; }
-        td:first-child { font-weight: 500; color: var(--primary-dark); }
-        td:last-child { font-weight: 500; color: var(--accent); }
-
-        @media (max-width: 480px) {
-            body { padding: 24px 16px; }
-            form { padding: 28px 22px; }
-            th, td { padding: 14px 16px; font-size: 0.85rem; }
-            h1 { font-size: 1.9rem; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>MMTO</h1>
-            <p class="subtitle">Diligencie el siguiente formulario</p>
-        </div>
-
-        <form>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" placeholder="Ingresa tu nombre completo" required>
-            </div>
-
-            <div class="form-group">
-                <label for="edad">Edad</label>
-                <input type="number" id="edad" placeholder="Ingresa tu edad" min="1" required>
-            </div>
-
-            <div class="form-group">
-                <label for="correo">Correo</label>
-                <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
-            </div>
-
-            <button type="submit">Enviar</button>
-        </form>
-
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Backend</th>
-                        <th>Frontend</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Node.js</td>
-                        <td>React</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
+    <title>MTTO</title>
+    </head>
+    <body>
+        <h1>Prueba</h1>
+        <p>Diligencie el siguiente formulario:</p>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <br><br>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad">
+        <br><br>
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo">
+        <br><br>
+        <button type="submit">Enviar</button>
+        <br><br>
+    </form>
+    <table border="1">
+        <tr>
+            <th>Backend</th>
+            <th>Frontend</th>
+        </tr>
+        <tr>
+            <td>Node.js</td>
+            <td>React</td>
+        </tr>
+    </table>
+    </body>
 </html>
