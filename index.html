@@ -2,708 +2,309 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KIMCHI — Trenches · Solana · Lifestyle</title>
-    <meta name="description" content="Página de homenaje al estilo público de Kimchi (@kimchi1x): trading de memecoins en Solana y estética luxury. No es el sitio oficial.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PB · MMTO</title>
+    
+    <!-- 🌟 CONFIGURACIÓN PARA LA PESTAÑA Y BARRA DEL NAVEGADOR 🌟 -->
+    <!-- Color de la barra de direcciones / borde superior (Chrome en Android, Edge, Safari iOS) -->
+    <meta name="theme-color" content="#1e1b4b">
+    
+    <!-- Icono de la pestaña (Favicon) generado con SVG en código (Un globo terráqueo con gradiente) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='50' fill='url(%23grad)'/%3E%3Cpath d='M50 20c-16.5 0-30 13.5-30 30s13.5 30 30 30 30-13.5 30-30-13.5-30-30-30zm-4 53.9c-11.8-1.5-21-10.7-22.5-22.5l16.5 16.5v2c0 2 1.5 3.5 3.5 3.5h2.5v.5zm16.9-9.4c-.6-1.3-1.9-2.2-3.4-2.2h-2v-6.9c0-1.1-.9-2-2-2H31.5v-5h5c1.1 0 2-.9 2-2V31.5h4.5c2.2 0 4-1.8 4-4v-3.4c11.1 2.2 20 11.2 22 22.2h-1.5c-2.2 0-4 1.8-4 4v4.5h-3.5c-2.2 0-4 1.8-4 4v4.5h-2.5v6.9h1.5c1.5 0 2.8-.9 3.4-2.2h.6z' fill='%23ffffff'/%3E%3C/svg%3E">
+    <!-- --------------------------------------------------------------- -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg: #050506;
-            --panel: #0c0c0f;
-            --line: rgba(255, 255, 255, 0.08);
-            --text: #f4f4f5;
-            --muted: #71717a;
-            --gold: #e8c547;
-            --gold-dim: rgba(232, 197, 71, 0.2);
-            --sol-a: #9945ff;
-            --sol-b: #14f195;
-            --display: "Bebas Neue", sans-serif;
-            --head: "Syne", sans-serif;
-            --body: "Space Grotesk", system-ui, sans-serif;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --accent: #ec4899;
+            --bg-start: #0f172a;
+            --bg-mid: #1e1b4b;
+            --bg-end: #312e81;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --border: #e2e8f0;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
-        *,
-        *::before,
-        *::after {
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            margin: 0;
-            font-family: var(--body);
-            font-size: 0.9375rem;
-            line-height: 1.6;
-            color: var(--text);
-            background: var(--bg);
-        }
-
-        .topnav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.85rem 1.25rem;
-            background: rgba(5, 5, 6, 0.75);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--line);
-        }
-
-        .topnav .logo {
-            font-family: var(--display);
-            font-size: 1.5rem;
-            letter-spacing: 0.12em;
-            color: var(--gold);
-            text-decoration: none;
-        }
-
-        .topnav nav {
-            display: flex;
-            gap: 1.25rem;
-        }
-
-        .topnav a {
-            font-size: 0.6875rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .topnav a:hover {
-            color: var(--text);
-        }
-
-        .topnav .x-link {
-            padding: 0.4rem 0.85rem;
-            color: var(--bg);
-            background: linear-gradient(90deg, var(--sol-a), var(--sol-b));
-            border-radius: 999px;
-        }
-
-        .topnav .x-link:hover {
-            color: var(--bg);
-            filter: brightness(1.08);
-        }
-
-        .hero {
-            position: relative;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-mid) 50%, var(--bg-end) 100%);
             display: flex;
-            align-items: flex-end;
-            padding: 6rem 1.25rem 3rem;
-            overflow: hidden;
-        }
-
-        .hero-media {
-            position: absolute;
-            inset: 0;
-        }
-
-        .hero-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-media::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(180deg, rgba(5, 5, 6, 0.4) 0%, rgba(5, 5, 6, 0.85) 55%, var(--bg) 100%),
-                linear-gradient(90deg, rgba(153, 69, 255, 0.15), transparent 45%);
-        }
-
-        .hero-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .hero-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero-tags span {
-            padding: 0.35rem 0.75rem;
-            font-size: 0.625rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            border: 1px solid var(--line);
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .hero-tags .sol {
-            border-color: rgba(20, 241, 149, 0.35);
-            color: var(--sol-b);
-        }
-
-        .hero h1 {
-            margin: 0 0 0.25rem;
-            font-family: var(--display);
-            font-size: clamp(4.5rem, 16vw, 9rem);
-            line-height: 0.88;
-            letter-spacing: 0.02em;
-            background: linear-gradient(180deg, #fff 20%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero .handle {
-            margin: 0 0 1rem;
-            font-family: var(--head);
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            font-weight: 700;
-            color: var(--sol-b);
-        }
-
-        .hero .pitch {
-            max-width: 42ch;
-            margin: 0 0 2rem;
-            font-size: 1.0625rem;
-            color: rgba(244, 244, 245, 0.75);
-        }
-
-        .hero-cta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .btn {
-            display: inline-flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0.9rem 1.75rem;
-            font-family: var(--head);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: transform 0.2s, filter 0.2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.06);
-        }
-
-        .btn-gold {
-            color: var(--bg);
-            background: linear-gradient(135deg, #fff5c8, var(--gold));
-            box-shadow: 0 8px 32px var(--gold-dim);
-        }
-
-        .btn-ghost {
-            color: var(--text);
-            border: 1px solid var(--line);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .ticker {
-            border-block: 1px solid var(--line);
-            background: var(--panel);
-            overflow: hidden;
-        }
-
-        .ticker-track {
-            display: flex;
-            gap: 3rem;
-            width: max-content;
-            padding: 0.75rem 0;
-            animation: marquee 28s linear infinite;
-        }
-
-        @keyframes marquee {
-            to { transform: translateX(-50%); }
-        }
-
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.6875rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            white-space: nowrap;
-            color: var(--muted);
-        }
-
-        .ticker-item strong {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        .section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: clamp(3rem, 8vh, 5rem) 1.25rem;
-        }
-
-        .section-head {
-            margin-bottom: 2rem;
-        }
-
-        .section-head h2 {
-            margin: 0 0 0.5rem;
-            font-family: var(--head);
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        .section-head p {
-            margin: 0;
-            max-width: 52ch;
-            color: var(--muted);
-        }
-
-        .lifestyle-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            .lifestyle-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .topnav nav:not(.x-wrap) {
-                display: none;
-            }
-        }
-
-        .lux {
+            padding: 40px 20px;
             position: relative;
-            aspect-ratio: 3 / 4;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid var(--line);
+            overflow-x: hidden;
+            color: var(--text-dark);
         }
 
-        .lux img {
+        /* Burbujas decorativas */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 400px; height: 400px;
+            background: rgba(99, 102, 241, 0.4);
+            top: -100px; left: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        body::after {
+            width: 350px; height: 350px;
+            background: rgba(236, 72, 153, 0.3);
+            bottom: -80px; right: -80px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
+            max-width: 520px;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .lux:hover img {
-            transform: scale(1.05);
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .lux figcaption {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.15rem;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent 50%);
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
         }
 
-        .lux .label {
-            font-family: var(--display);
-            font-size: 1.75rem;
-            letter-spacing: 0.06em;
-            color: var(--gold);
-        }
-
-        .lux .sub {
-            font-size: 0.6875rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-        }
-
-        @media (max-width: 768px) {
-            .split {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            padding: 1.5rem;
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-        }
-
-        .card h3 {
-            margin: 0 0 1rem;
-            font-family: var(--head);
-            font-size: 1rem;
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
             font-weight: 700;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: var(--sol-b);
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .card ul {
-            margin: 0;
-            padding-left: 1.1rem;
-            color: rgba(244, 244, 245, 0.85);
+        h1::after {
+            content: '';
+            display: block;
+            width: 60px; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+            margin: 12px auto 0;
         }
 
-        .card li {
-            margin-bottom: 0.5rem;
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-top: 12px;
         }
 
-        .card li::marker {
-            color: var(--gold);
-        }
-
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            border: 1px solid var(--line);
-            border-radius: 8px;
+        form {
+            background: var(--card-bg);
+            padding: 36px 32px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 28px;
+            position: relative;
             overflow: hidden;
         }
 
-        .timeline-row {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 1rem;
-            padding: 1.15rem 1.25rem;
-            background: var(--panel);
-            border-bottom: 1px solid var(--line);
+        form::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
 
-        .timeline-row:last-child {
-            border-bottom: none;
-        }
+        .form-group { margin-bottom: 22px; }
 
-        @media (max-width: 520px) {
-            .timeline-row {
-                grid-template-columns: 1fr;
-                gap: 0.35rem;
-            }
-        }
-
-        .timeline-row time {
-            font-size: 0.6875rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
-
-        .timeline-row p {
-            margin: 0;
-            font-size: 0.875rem;
-            color: rgba(244, 244, 245, 0.8);
-        }
-
-        .timeline-row .note {
+        label {
             display: block;
-            margin-top: 0.35rem;
-            font-size: 0.75rem;
-            color: var(--muted);
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.85rem;
-            margin-top: 1.5rem;
-        }
-
-        @media (max-width: 640px) {
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .stat {
-            padding: 1.25rem;
-            text-align: center;
-            background: rgba(232, 197, 71, 0.06);
-            border: 1px solid var(--gold-dim);
-            border-radius: 8px;
-        }
-
-        .stat .num {
-            display: block;
-            font-family: var(--display);
-            font-size: 2.25rem;
-            letter-spacing: 0.04em;
-            color: var(--gold);
-        }
-
-        .stat .cap {
-            font-size: 0.625rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            letter-spacing: 0.12em;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
             text-transform: uppercase;
-            color: var(--muted);
         }
 
-        .disclaimer {
-            margin-top: 2rem;
-            padding: 1rem 1.15rem;
-            font-size: 0.75rem;
-            line-height: 1.55;
-            color: var(--muted);
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid var(--sol-a);
-            border-radius: 0 6px 6px 0;
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text-dark);
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.25s ease;
         }
 
-        .join {
-            text-align: center;
-            padding: 3rem 1.25rem;
-            border-top: 1px solid var(--line);
-            background:
-                radial-gradient(ellipse 60% 80% at 50% 100%, rgba(153, 69, 255, 0.12), transparent),
-                var(--panel);
+        input::placeholder { color: #94a3b8; }
+        input:hover { border-color: #cbd5e1; }
+        input:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            transform: translateY(-1px);
         }
 
-        .join h2 {
-            margin: 0 0 0.5rem;
-            font-family: var(--display);
-            font-size: 2.5rem;
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 0.03em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+            margin-top: 8px;
+        }
+
+        button[type="submit"]::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+        }
+
+        button[type="submit"]:hover::before { left: 100%; }
+        button[type="submit"]:active { transform: translateY(0); }
+
+        .table-wrapper {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+
+        thead { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+
+        th {
+            padding: 18px 24px;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: var(--gold);
         }
 
-        .join p {
-            margin: 0 0 1.5rem;
-            color: var(--muted);
+        td {
+            padding: 18px 24px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border);
         }
 
-        footer {
-            padding: 2rem 1.25rem;
-            text-align: center;
-            font-size: 0.6875rem;
-            letter-spacing: 0.08em;
-            color: rgba(113, 113, 122, 0.8);
-            border-top: 1px solid var(--line);
-        }
+        tbody tr { transition: background 0.2s ease; }
+        tbody tr:hover { background: #f8fafc; }
+        tbody tr:last-child td { border-bottom: none; }
+        td:first-child { font-weight: 500; color: var(--primary-dark); }
+        td:last-child { font-weight: 500; color: var(--accent); }
 
-        footer a {
-            color: var(--sol-b);
+        @media (max-width: 480px) {
+            body { padding: 24px 16px; }
+            form { padding: 28px 22px; }
+            th, td { padding: 14px 16px; font-size: 0.85rem; }
+            h1 { font-size: 1.9rem; }
         }
     </style>
 </head>
 <body>
-    <header class="topnav">
-        <a class="logo" href="#">KIMCHI</a>
-        <nav aria-label="Principal">
-            <a href="#lifestyle">Lifestyle</a>
-            <a href="#trenches">Trenches</a>
-            <a href="#lore">Lore</a>
-        </nav>
-        <nav class="x-wrap" aria-label="Social">
-            <a class="x-link" href="https://x.com/kimchi1x" target="_blank" rel="noopener noreferrer">@kimchi1x</a>
-        </nav>
-    </header>
-
-    <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-media">
-            <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1600&q=80" alt="" width="1600" height="900">
+    <div class="container">
+        <div class="header">
+            <h1>MMTO</h1>
+            <p class="subtitle">Diligencie el siguiente formulario</p>
         </div>
-        <div class="hero-inner">
-            <div class="hero-tags">
-                <span class="sol">Solana</span>
-                <span>Memecoins</span>
-                <span>The Trenches</span>
-                <span>Luxury flex</span>
-            </div>
-            <h1 id="hero-title">KIMCHI</h1>
-            <p class="handle">@kimchi1x · trader pseudónimo</p>
-            <p class="pitch">
-                De monitorear lanzamientos en Solana a convertirse en referente de estilo de vida crypto:
-                supercars, relojes suizos y designer — con la narrativa del memecoin millionaire.
-            </p>
-            <div class="hero-cta">
-                <a class="btn btn-gold" href="https://x.com/kimchi1x" target="_blank" rel="noopener noreferrer">Seguir en X</a>
-                <a class="btn btn-ghost" href="#trenches">Cómo opera</a>
-            </div>
-        </div>
-    </section>
 
-    <div class="ticker" aria-hidden="true">
-        <div class="ticker-track">
-            <span class="ticker-item"><strong>Solana</strong> trenches</span>
-            <span class="ticker-item"><strong>$TRUMP</strong> narrative</span>
-            <span class="ticker-item"><strong>1 Kimchi</strong> = meme metric</span>
-            <span class="ticker-item"><strong>Pump.fun</strong> collab</span>
-            <span class="ticker-item"><strong>15h</strong> screen time</span>
-            <span class="ticker-item"><strong>On-chain</strong> &gt; headlines</span>
-            <span class="ticker-item"><strong>Solana</strong> trenches</span>
-            <span class="ticker-item"><strong>$TRUMP</strong> narrative</span>
-            <span class="ticker-item"><strong>1 Kimchi</strong> = meme metric</span>
-            <span class="ticker-item"><strong>Pump.fun</strong> collab</span>
-            <span class="ticker-item"><strong>15h</strong> screen time</span>
-            <span class="ticker-item"><strong>On-chain</strong> &gt; headlines</span>
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" placeholder="Ingresa tu nombre completo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edad">Edad</label>
+                <input type="number" id="edad" placeholder="Ingresa tu edad" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
+            </div>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Backend</th>
+                        <th>Frontend</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Node.js</td>
+                        <td>React</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <section class="section" id="lifestyle" aria-labelledby="life-title">
-        <div class="section-head">
-            <h2 id="life-title">El flex que vende la marca</h2>
-            <p>
-                Kimchi no solo publica PnL: construye identidad con imagen de élite — autos, horología
-                y moda — igual que muchos KOLs crypto que mezclan trading especulativo y aspiracional.
-            </p>
-        </div>
-        <div class="lifestyle-grid">
-            <figure class="lux">
-                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80" alt="Supercar de lujo" width="700" height="933" loading="lazy">
-                <figcaption>
-                    <span class="label">Supercar</span>
-                    <span class="sub">Performance · Status</span>
-                </figcaption>
-            </figure>
-            <figure class="lux">
-                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=700&q=80" alt="Reloj de lujo" width="700" height="933" loading="lazy">
-                <figcaption>
-                    <span class="label">Swiss Made</span>
-                    <span class="sub">Horology · Limited</span>
-                </figcaption>
-            </figure>
-            <figure class="lux">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=700&q=80" alt="Moda de diseñador" width="700" height="933" loading="lazy">
-                <figcaption>
-                    <span class="label">Designer</span>
-                    <span class="sub">Maison · Runway</span>
-                </figcaption>
-            </figure>
-        </div>
-    </section>
-
-    <section class="section" id="trenches" aria-labelledby="trenches-title">
-        <div class="section-head">
-            <h2 id="trenches-title">Cómo se maneja en el juego</h2>
-            <p>
-                Perfil público: operar memecoins recién lanzados en Solana (“the trenches”), seguir wallets,
-                vivir en pantalla y escalar visibilidad con contenido lifestyle — popularizado en el ecosistema
-                tras apariciones como el day-in-the-life con Orangie.
-            </p>
-        </div>
-        <div class="split">
-            <article class="card">
-                <h3>Rutina reportada</h3>
-                <ul>
-                    <li>Enfoque serio en memecoins desde ~2024.</li>
-                    <li>Horas largas monitoreando txs y nuevos mints en Solana.</li>
-                    <li>Estrategia de alta volatilidad: entradas tempranas, salidas rápidas.</li>
-                    <li>Poca exposición pública de wallets verificables — la leyenda corre aparte.</li>
-                </ul>
-            </article>
-            <article class="card">
-                <h3>Marca personal</h3>
-                <ul>
-                    <li>Contenido centrado en riqueza visible, no en hojas de cálculo.</li>
-                    <li>Narrativa viral del “memecoin millionaire”.</li>
-                    <li>Colaboración creativa con Pump.fun (2025–2026).</li>
-                    <li>Token / cultura $KIMCHI en conversaciones de la comunidad.</li>
-                </ul>
-            </article>
-        </div>
-        <div class="stats" aria-label="Métricas narrativas">
-            <div class="stat">
-                <span class="num">$40M</span>
-                <span class="cap">Rumor $TRUMP · sin prueba pública completa</span>
-            </div>
-            <div class="stat">
-                <span class="num">~$6M</span>
-                <span class="cap">Est. Bubblemaps · wallets rastreadas</span>
-            </div>
-            <div class="stat">
-                <span class="num">1</span>
-                <span class="cap">“Kimchi” = unidad meme en CT</span>
-            </div>
-        </div>
-        <p class="disclaimer">
-            <strong>Aviso:</strong> Esta página es un homenaje educativo, no el sitio oficial de Kimchi.
-            Las cifras de ganancias son narrativas mediáticas o estimaciones on-chain parciales — no asesoría
-            financiera. Operar memecoins implica riesgo extremo y pérdida total del capital.
-        </p>
-    </section>
-
-    <section class="section" id="lore" aria-labelledby="lore-title">
-        <div class="section-head">
-            <h2 id="lore-title">Timeline del hype</h2>
-            <p>Hitos que definieron cómo la comunidad lo percibe — hechos públicos vs verificación.</p>
-        </div>
-        <div class="timeline">
-            <div class="timeline-row">
-                <time>2024</time>
-                <p>
-                    Actividad en memecoins de Solana; estilo “trenches” y meses con ingresos altos autodeclarados.
-                    <span class="note">Cifras personales, no auditadas.</span>
-                </p>
-            </div>
-            <div class="timeline-row">
-                <time>Ene 2025</time>
-                <p>
-                    Contenido “Day in the life” con Orangie; sube la exposición como trader lifestyle.
-                </p>
-            </div>
-            <div class="timeline-row">
-                <time>2025</time>
-                <p>
-                    Se viraliza la historia de ~$40M en $TRUMP; nace el meme “one Kimchi” en crypto Twitter.
-                    <span class="note">Kimchi no publicó historial completo verificable.</span>
-                </p>
-            </div>
-            <div class="timeline-row">
-                <time>2025–26</time>
-                <p>
-                    Análisis Bubblemaps sugiere ~$6M en wallets vinculadas — debate sobre cifra real vs marketing.
-                </p>
-            </div>
-            <div class="timeline-row">
-                <time>Oct 2025</time>
-                <p>
-                    Partnership creativo con Pump.fun; vuelve a tendencia con $KIMCHI y conversación de celebridad-trader.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="join" aria-labelledby="join-title">
-        <h2 id="join-title">Stay in the trenches</h2>
-        <p>La voz pública vive en X — ahí es donde suelta flex, drops y presencia de marca.</p>
-        <a class="btn btn-gold" href="https://x.com/kimchi1x" target="_blank" rel="noopener noreferrer">@kimchi1x</a>
-    </section>
-
-    <footer>
-        Página fan / proyecto educativo · No afiliada oficialmente ·
-        <a href="https://x.com/kimchi1x" target="_blank" rel="noopener noreferrer">@kimchi1x</a>
-        · DYOR · NFA
-    </footer>
 </body>
 </html>
